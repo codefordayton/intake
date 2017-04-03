@@ -1,9 +1,18 @@
 # Intake
 
-[![Join the chat at https://gitter.im/codeforamerica/intake](https://badges.gitter.im/codeforamerica/intake.svg)](https://gitter.im/codeforamerica/intake?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+Welcome to _Intake_, the Clear My Record application intake system. This branch represents a snapshot of Intake at a point in its history when the team encountered a stakeholder-driven need that presented an opportunity for a refactor.
 
-[![Build Status](https://travis-ci.org/codeforamerica/intake.svg?branch=master)](https://travis-ci.org/codeforamerica/intake) [![Test Coverage](https://codeclimate.com/github/codeforamerica/intake/badges/coverage.svg)](https://codeclimate.com/github/codeforamerica/intake/coverage) [![Code Climate](https://codeclimate.com/github/codeforamerica/intake/badges/gpa.svg)](https://codeclimate.com/github/codeforamerica/intake) 
-[![Requirements Status](https://requires.io/github/codeforamerica/intake/requirements.svg?branch=master)](https://requires.io/github/codeforamerica/intake/requirements/?branch=master)
+## About
+
+Context for this challenge: our growth team is always looking for more insights regarding CMR applicants, and has recently expressed a desire to quickly generate reports or queries on data that is not easily accessible -- specifically, they're interested in existing referral channels, via the "How did you hear about Clear My Record?" question on the application form. We'd like to help them access this information more easily, and noticed that there's an opportunity to re-examine how the `FormSubmission` model is defined.
+
+When the application was originally built, many of the user inputs on the `FormSubmission` were consolidated into a JSON blob and stored to a field called `answers`. This JSON was then parsed as-needed to convey application details to attorneys using the application, and to fill printable PDFs. The problem: this JSON isn't suited for SQL queries that the growth team is writing, and there's a fair bit of processing to do in order to isolate the relevant keys/values from the blob. 
+
+The lead developer on the Clear My Record team has asked you to assist with a refactor based on these needs. You may approach this however you like, but the team lead expects the following to be true after the refactor:
+    - A growth team member can query the application database and find the specific answer to the "How did you hear about Clear My Record?" question on any/all records that a user chose to respond to that question.
+    - Existing submissions and new submissions should both be queryable on this field.
+
+A member of the developer team is available to pair with you on this refactor, but you are expected to 'drive'.
 
 ## Requirements
 To get a local version of intake running, you'll need to have the following installed:
