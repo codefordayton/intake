@@ -42,7 +42,8 @@ class TestForm(PatchTranslationTestCase):
         self.assertTrue('last_name' in keys)
         self.assertTrue('understands_limits' in keys)
         self.assertTrue('consent_to_represent' in keys)
-        self.assertEqual(len(keys), 4)
+        self.assertTrue('consent_to_court_appearance' in keys)
+        self.assertEqual(len(keys), 5)
 
     def test_application_form_with_mock_answers(self):
         fake_answers = mock.form_answers()
@@ -82,6 +83,7 @@ class TestForm(PatchTranslationTestCase):
             'when_where_outside_sf': '',
             'where_probation_or_parole': '',
             'consent_to_represent': '',
+            'consent_to_court_appearance': '',
             'understands_limits': '',
             'additional_information': '',
         }
@@ -120,6 +122,7 @@ class TestForm(PatchTranslationTestCase):
             'when_where_outside_sf': '',
             'where_probation_or_parole': '',
             'consent_to_represent': 'yes',
+            'consent_to_court_appearance': 'yes',
             'understands_limits': 'yes',
             'additional_information': 'foo bar',
         }

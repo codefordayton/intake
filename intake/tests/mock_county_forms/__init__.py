@@ -33,7 +33,7 @@ class Provider(BaseProvider):
         ], preferences)
 
     def make_phone_number(self):
-        return '8314207603'
+        return '4152124848'
 
     def sf_county_form_answers(self, **overrides):
         data = {
@@ -42,7 +42,7 @@ class Provider(BaseProvider):
             'last_name': self.generator.last_name(),
             'contact_preferences': self.generate_contact_preferences(),
             'phone_number': self.make_phone_number(),
-            'email': 'bgolder+testing@codeforamerica.org',
+            'email': 'cmrtestuser@gmail.com',
             'address.street': self.generator.street_address(),
             'address.city': self.generator.city(),
             'address.state': self.generator.state_abbr(),
@@ -63,6 +63,7 @@ class Provider(BaseProvider):
             'when_where_outside_sf': '',
             'where_probation_or_parole': '',
             'consent_to_represent': 'yes',
+            'consent_to_court_appearance': 'yes',
             'understands_limits': 'yes',
             'how_did_you_hear': '',
             'additional_information': 'I want help',
@@ -79,7 +80,7 @@ class Provider(BaseProvider):
             'first_name': self.generator.first_name(),
             'last_name': self.generator.last_name(),
             'phone_number': self.make_phone_number(),
-            'email': 'bgolder+testing@codeforamerica.org',
+            'email': 'cmrtestuser@gmail.com',
             'dob.day': str(random.randint(1, 31)),
             'dob.month': str(random.randint(1, 12)),
             'dob.year': str(random.randint(1959, 2000)),
@@ -95,6 +96,7 @@ class Provider(BaseProvider):
             'monthly_expenses': str(random.randint(100, 3000)),
             'income_source': 'a job',
             'consent_to_represent': 'yes',
+            'consent_to_court_appearance': 'yes',
             'understands_limits': 'yes',
             'how_did_you_hear': '',
             'additional_information': '',
@@ -114,7 +116,7 @@ class Provider(BaseProvider):
             'last_name': self.generator.last_name(),
             'phone_number': self.make_phone_number(),
             'alternate_phone_number': self.make_phone_number(),
-            'email': 'bgolder+testing@codeforamerica.org',
+            'email': 'cmrtestuser@gmail.com',
             'dob.day': str(random.randint(1, 31)),
             'dob.month': str(random.randint(1, 12)),
             'dob.year': str(random.randint(1959, 2000)),
@@ -136,6 +138,7 @@ class Provider(BaseProvider):
             'owns_home': self.maybe(0.1),
             'household_size': str(random.randint(0, 4)),
             'consent_to_represent': 'yes',
+            'consent_to_court_appearance': 'yes',
             'understands_limits': 'yes',
             'how_did_you_hear': 'from work',
             'additional_information': 'I want help',
@@ -160,7 +163,7 @@ class Provider(BaseProvider):
             'contact_preferences': self.generate_contact_preferences(),
             'first_name': self.generator.first_name(),
             'phone_number': self.make_phone_number(),
-            'email': 'bgolder+testing@codeforamerica.org',
+            'email': 'cmrtestuser@gmail.com',
             'address.street': self.generator.street_address(),
             'address.city': self.generator.city(),
             'address.state': self.generator.state_abbr(),
@@ -177,7 +180,7 @@ class Provider(BaseProvider):
             'last_name': self.generator.last_name(),
             'contact_preferences': self.generate_contact_preferences(),
             'phone_number': self.make_phone_number(),
-            'email': 'bgolder+testing@codeforamerica.org',
+            'email': 'cmrtestuser@gmail.com',
             'address': {
                 'street': self.generator.street_address(),
                 'city': self.generator.city(),
@@ -203,6 +206,7 @@ class Provider(BaseProvider):
             'where_probation_or_parole': '',
             'how_did_you_hear': '',
             'consent_to_represent': 'yes',
+            'consent_to_court_appearance': 'yes',
             'understands_limits': 'yes',
             'additional_information': 'I want help',
         }

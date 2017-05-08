@@ -49,6 +49,11 @@ REASON_FOR_APPLYING_CHOICES = (
     ('other', _('My reason is not listed')),
 )
 
+SANTA_BARBARA_COURT_CHOICES = (
+    ('yes', _("Yes, they can attend court if I'm not there")),
+    ('no', _("No, they cannot attend court if I'm not there"))
+    )
+
 APPROVE_LETTER = 'approve_letter'
 EDIT_LETTER = 'edit_letter'
 
@@ -57,6 +62,8 @@ DECLARATION_LETTER_REVIEW_CHOICES = (
     (APPROVE_LETTER, _('Approve letter')),
 )
 
+COUNTIES_REQUIRING_ADDRESS = [
+    'sanfrancisco', 'contracosta', 'alameda', 'fresno', 'solano']
 
 STAFF_NAME_CHOICES = ['Jazmyn', 'Ben']
 
@@ -227,7 +234,8 @@ if not SCOPE_TO_LIVE_COUNTIES:
             'Tulare County (near Visalia, Tulare, Porterville, Finuba, '
             'Lindsay, Farmersville, Exeter, or Woodlake)')),
         (Counties.VENTURA, _(
-            'Ventura County (near Oxnard, Thousand Oaks, Simi Valley and '
+            'Ventura County (near Oxnard, Thousand Oaks, Simi Valley, '
+            'Camarillo, Ojai, Moorpark, Fillmore, Ojai, Santa Paula, or '
             'Ventura)')),
         (Counties.SANTA_BARBARA, _(
             'Santa Barbara County (near Santa Maria, Santa Barbara, Goleta, '

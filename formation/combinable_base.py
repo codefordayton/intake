@@ -61,6 +61,8 @@ class CombinableFormSpec:
             if not isinstance(value, list):
                 value = list(value)
             class_attributes[attribute_name] = value
+        # TODO: prune this print statement!!
+        # print("_______CLASSATTRS____ {}".format(class_attributes))
         return class_attributes
 
     def build_form_class(self, extra_class_attributes=None, ParentClass=None):
@@ -96,6 +98,10 @@ class FormSpecSelector:
                 combined_spec = spec
             else:
                 combined_spec |= spec
+        combined_spec.criteria = criteria
+        # combined_spec.add_nice_county_names_to_consentbox()
+        # combined_spec.modify_address_field_based_on_counties()
+
         if not combined_spec:
             raise NoFormSpecError(
                 "No form spec found with criteria={} and specs={}".format(

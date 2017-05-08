@@ -72,6 +72,7 @@ class TestFullCountyApplicationSequence(IntakeDataTestCase):
             first_name="Foo",
             last_name="Bar",
             consent_to_represent='yes',
+            consent_to_court_appearance='yes',
             understands_limits='yes',
         )
         self.assertRedirects(
@@ -80,7 +81,8 @@ class TestFullCountyApplicationSequence(IntakeDataTestCase):
         self.assertContains(response, "Foo")
         self.assertContains(response, "Bar")
         self.assertContains(
-            response, fields.AddressField.is_recommended_error_message)
+            response,
+            "Leaving this field blank might cause problems.")
         self.assertContains(
             response,
             fields.SocialSecurityNumberField.is_recommended_error_message)
@@ -97,9 +99,5 @@ class TestFullCountyApplicationSequence(IntakeDataTestCase):
             understands_limits='yes',
             follow=True
         )
-        submission = models.FormSubmission.objects.filter(
-            answers__first_name="Foo",
-            answers__last_name="Bar").first()
-        self.assertEqual(response.wsgi_request.path, reverse('intake-thanks'))
-        self.assertEqual(len(slack.mock_calls), 1)
-        send_confirmation.assert_called_once_with(submission)
+        self.assertEqual(response.wsgi_request.path, reverse('intake-confirm'))
+        # TODO: replace this test with behave tests

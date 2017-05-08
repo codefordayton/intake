@@ -6,14 +6,14 @@ from formation.field_types import (
     CharField, MultilineCharField, IntegerField, WholeDollarField, ChoiceField,
     YesNoField, YesNoIDontKnowField, MultipleChoiceField, MultiValueField,
     PhoneField, FormNote, DateTimeField, ConsentCheckbox,
-    YES_NO_CHOICES, NOT_APPLICABLE, YES_NO_IDK_CHOICES
+    NOT_APPLICABLE, YES_NO_IDK_CHOICES
 )
 from intake.constants import (
     COUNTY_CHOICES, CONTACT_PREFERENCE_CHOICES, REASON_FOR_APPLYING_CHOICES,
     GENDER_PRONOUN_CHOICES, DECLARATION_LETTER_REVIEW_CHOICES,
-    COUNTY_CHOICE_DISPLAY_DICT
+    COUNTY_CHOICE_DISPLAY_DICT, SANTA_BARBARA_COURT_CHOICES
 )
-from project.jinja2 import namify
+from project.jinja2 import namify, oxford_comma
 
 ###
 # Meta fields about the application
@@ -88,12 +88,37 @@ class ConsentToRepresent(ConsentCheckbox):
     is_required_error_message = (
         "The attorneys need your permission in order to help you")
     label = _(
-        "Is it okay for attorneys in each county you've selected to access "
-        "your criminal record, file petitions for you, and attend court on "
-        "your behalf, even if you aren't there?")
-    agreement_text = _("Yes, I give them permission to do that")
+        "Do you understand that attorneys in the counties "
+        "you have selected need to access your criminal "
+        "record and file petitions for you?")
+    agreement_text = _("Yes, I understand")
     display_label = str(
-        "Consents to record access, filing, and court representation")
+        "Consents to record access and filing")
+
+
+class ConsentToCourtAppearance(ConsentCheckbox):
+    context_key = "consent_to_court_appearance"
+    is_required_error_message = (
+        "The attorneys need your permission in order to help you")
+    template_name = "formation/consent_to_court_appearance.jinja"
+
+    # default label, will be overridden in template
+    label = _(
+        "In most counties in California, do you understand that attorneys "
+        "need to attend court on your behalf, even if you aren't there?")
+    display_label = "Consents to attorneys attending court on their behalf"
+    agreement_text = _("Yes, I understand")
+
+
+class SantaBarbaraCourtAppearanceChoice(ChoiceField):
+    context_key = "santa_barbara_court_appearance"
+    choices = SANTA_BARBARA_COURT_CHOICES
+    label = _(
+        "In Santa Barbara county, you have a choice - would you "
+        "like attorneys to attend court on your behalf, even if you "
+        "are not there?")
+    # needs help on this display label
+    display_label = "Santa Barbara court appearance consent"
 
 
 class UnderstandsLimits(ConsentCheckbox):
@@ -324,20 +349,26 @@ class Zip(CharField):
     autocomplete = "postal-code"
 
 
+class NoMailingAddress(ConsentCheckbox):
+    context_key = "no_mailing_address"
+    # I am not sure if this is the best way to do an empty label, but it works
+    label = _("")
+    agreement_text = _("I do not have a safe place where I can receive mail")
+    display_label = str(
+        "Does not have a mailing address")
+
+
 class AddressField(MultiValueField):
     context_key = "address"
-    label = _("What is your mailing address?")
+    label = _("Where is a safe place you can receive mail?")
     help_text = _("")
     template_name = "formation/multivalue_address.jinja"
-    is_required_error_message = _("The public defender needs a mailing "
-                                  "address to send you a letter with the next "
-                                  "steps.")
-    is_recommended_error_message = is_required_error_message
     subfields = [
         Street,
         City,
         State,
-        Zip
+        Zip,
+        # NoMailingAddress
     ]
     display_template_name = "formation/address_display.jinja"
 
@@ -348,6 +379,13 @@ class AddressField(MultiValueField):
     def get_inline_display_value(self):
         return "{street}, {city}, {state} {zip}".format(
             **self.get_current_value())
+
+    def include_no_address_checkbox(self):
+        self.subfields.append(NoMailingAddress)
+
+    def exclude_no_address_checkbox(self):
+        if NoMailingAddress in self.subfields:
+            self.subfields.remove(NoMailingAddress)
 
 
 ###
@@ -400,7 +438,7 @@ class OnProbationParole(YesNoIDontKnowField):
 
 class WhereProbationParole(CharField):
     context_key = "where_probation_or_parole"
-    label = _("If you are on probation or parole, where is it?")
+    label = _("If you are on probation or parole, what county is it in?")
     display_label = "Where"
 
 
@@ -553,7 +591,7 @@ class HowManyDependents(IntegerField):
 
 class IsMarried(YesNoField):
     context_key = "is_married"
-    label = _("Are you married?")
+    label = _("Are you married or in a legal domestic partnership?")
 
 
 class HasChildren(YesNoField):
@@ -620,6 +658,7 @@ INTAKE_FIELDS = [
     AlternatePhoneNumberField,
     EmailField,
     AddressField,
+    NoMailingAddress,
     DateOfBirthField,
     DriverLicenseOrIDNumber,
     LastFourOfSocial,
@@ -660,6 +699,8 @@ INTAKE_FIELDS = [
     UnderstandsLimits,
     ConsentToRepresent,
     ConsentNote,
+    ConsentToCourtAppearance,
+    SantaBarbaraCourtAppearanceChoice,
 
     DeclarationLetterNote,
     DeclarationLetterIntro,

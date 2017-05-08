@@ -359,6 +359,12 @@ class MultiValueField(Field):
         setattr(self, instance.context_key, instance)
         return instance
 
+    def has_subfield(self, subfield_key):
+        for subfield in self.subfields:
+            if subfield.context_key == subfield_key:
+                return True
+        return False
+
     def extract_raw_value(self, raw_data):
         # self.raw_data should be a dict that is the subset
         # of child field keys

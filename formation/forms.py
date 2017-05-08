@@ -4,8 +4,14 @@ from formation.display_form_base import DisplayForm
 from formation import fields as F
 from intake.constants import Counties, Organizations
 from formation.validators import (
-    gave_preferred_contact_methods, at_least_email_or_phone
+    gave_preferred_contact_methods, at_least_email_or_phone,
+    at_least_address_or_chose_no_mailing_address
 )
+from intake.constants import (
+    COUNTY_CHOICE_DISPLAY_DICT, COUNTIES_REQUIRING_ADDRESS)
+from project.jinja2 import oxford_comma
+from formation.fields import (
+    AddressField, ConsentToCourtAppearance)
 
 
 class CombinableCountyFormSpec(CombinableFormSpec):
@@ -14,6 +20,47 @@ class CombinableCountyFormSpec(CombinableFormSpec):
         counties = kwargs.get('counties', [])
         return self.county in counties
 
+    def add_nice_county_names_to_consentbox(self):
+        """
+        county name generation for the consent checkbox split could
+        be a little less brittle, but for now SB is the only one that
+        is being excluded
+        """
+        counties = self.criteria['counties']
+        appearance_consent = ConsentToCourtAppearance
+        county_names = []
+        for county in counties:
+            if COUNTY_CHOICE_DISPLAY_DICT[county] != "Santa Barbara":
+                county_names.append(COUNTY_CHOICE_DISPLAY_DICT[county])
+        formatted_county_names = oxford_comma([
+            county + " County" for county in county_names])
+
+        self.fields.discard(appearance_consent)
+        appearance_consent.update_counties(
+            appearance_consent, formatted_county_names)
+        self.fields.add(appearance_consent)
+
+    def modify_address_field_based_on_counties(self):
+        """
+        this feels sloppy but it gets the job done; would love
+        to look at other ways to handle the checkbox inclusion/
+        exclusion in the mailing address multivaluefield -- it
+        seemed like this was the only place to know for sure
+        whether a combined form included counties that required
+        a mailing address // same technique worked for county names
+        in the label update on the appearance consent checkbox
+        """
+        address_field = AddressField
+        filtered = [i for i in counties if not any(
+            stop in i for stop in COUNTIES_REQUIRING_ADDRESS)]
+        if len(filtered) == len(counties):
+            combined_spec.fields.discard(address_field)
+            address_field.include_no_address_checkbox(address_field)
+            combined_spec.fields.add(address_field)
+        else:
+            combined_spec.fields.discard(address_field)
+            address_field.exclude_no_address_checkbox(address_field)
+            combined_spec.fields.add(address_field)
 
 class CombinableOrganizationFormSpec(CombinableFormSpec):
 
@@ -86,12 +133,14 @@ class SanFranciscoCountyFormSpec(CombinableCountyFormSpec):
         F.AdditionalInformation,
         F.UnderstandsLimits,
         F.ConsentToRepresent,
+        F.ConsentToCourtAppearance
     }
     required_fields = {
         F.FirstName,
         F.LastName,
         F.UnderstandsLimits,
         F.ConsentToRepresent,
+        F.ConsentToCourtAppearance
     }
     recommended_fields = {
         F.AddressField,
@@ -130,12 +179,13 @@ class ContraCostaFormSpec(CombinableCountyFormSpec):
         F.HowDidYouHear,
         F.UnderstandsLimits,
         F.ConsentToRepresent,
-        F.AdditionalInformation
+        F.AdditionalInformation,
+        F.ConsentToCourtAppearance
     }
     required_fields = {
         F.FirstName,
         F.LastName,
-        F.AddressField,
+        # F.AddressField,
         F.USCitizen,
         F.CurrentlyEmployed,
         F.DateOfBirthField,
@@ -146,6 +196,7 @@ class ContraCostaFormSpec(CombinableCountyFormSpec):
         F.OnProbationParole,
         F.UnderstandsLimits,
         F.ConsentToRepresent,
+        F.ConsentToCourtAppearance
     }
     optional_fields = {
         F.HowDidYouHear,
@@ -189,6 +240,7 @@ class AlamedaCountyFormSpec(CombinableCountyFormSpec):
         F.AdditionalInformation,
         F.UnderstandsLimits,
         F.ConsentToRepresent,
+        F.ConsentToCourtAppearance
     }
     required_fields = {
         F.FirstName,
@@ -206,6 +258,7 @@ class AlamedaCountyFormSpec(CombinableCountyFormSpec):
         F.BeingCharged,
         F.UnderstandsLimits,
         F.ConsentToRepresent,
+        F.ConsentToCourtAppearance
     }
     optional_fields = {
         F.AlternatePhoneNumberField,
@@ -241,6 +294,7 @@ class AlamedaPublicDefenderFormSpec(CombinableOrganizationFormSpec):
         F.BeingCharged,
         F.HowDidYouHear,
         F.AdditionalInformation,
+        F.ConsentToCourtAppearance
     }
     required_fields = {
         F.FirstName,
@@ -255,6 +309,7 @@ class AlamedaPublicDefenderFormSpec(CombinableOrganizationFormSpec):
         F.ReducedProbation,
         F.ServingSentence,
         F.BeingCharged,
+        F.ConsentToCourtAppearance
     }
     optional_fields = {
         F.AlternatePhoneNumberField,
@@ -292,6 +347,7 @@ class MontereyCountyFormSpec(CombinableCountyFormSpec):
         F.AdditionalInformation,
         F.UnderstandsLimits,
         F.ConsentToRepresent,
+        F.ConsentToCourtAppearance
     }
     required_fields = {
         F.FirstName,
@@ -306,6 +362,7 @@ class MontereyCountyFormSpec(CombinableCountyFormSpec):
         F.BeingCharged,
         F.UnderstandsLimits,
         F.ConsentToRepresent,
+        F.ConsentToCourtAppearance
     }
     optional_fields = {
         F.HowDidYouHear,
@@ -341,6 +398,7 @@ class SolanoCountyFormSpec(CombinableCountyFormSpec):
         F.AdditionalInformation,
         F.UnderstandsLimits,
         F.ConsentToRepresent,
+        F.ConsentToCourtAppearance
     }
     required_fields = {
         F.FirstName,
@@ -352,6 +410,7 @@ class SolanoCountyFormSpec(CombinableCountyFormSpec):
         F.BeingCharged,
         F.UnderstandsLimits,
         F.ConsentToRepresent,
+        F.ConsentToCourtAppearance
     }
     optional_fields = {
         F.MiddleName,
@@ -368,7 +427,7 @@ class SolanoCountyFormSpec(CombinableCountyFormSpec):
 class SanDiegoCountyFormSpec(SolanoCountyFormSpec):
     county = Counties.SAN_DIEGO
     fields = (SolanoCountyFormSpec.fields | {
-        F.CaseNumber,
+        F.CaseNumber
     }) - {
         F.USCitizen,
     }
@@ -377,7 +436,8 @@ class SanDiegoCountyFormSpec(SolanoCountyFormSpec):
     }
     validators = [
         gave_preferred_contact_methods,
-        at_least_email_or_phone
+        at_least_email_or_phone,
+        at_least_address_or_chose_no_mailing_address
     ]
 
 
@@ -431,7 +491,7 @@ class SantaClaraCountyFormSpec(SolanoCountyFormSpec):
         F.ReducedProbation,
         F.ReasonsForApplying,
         F.PFNNumber,
-        F.PreferredPronouns,
+        F.PreferredPronouns
     }) - {
         F.USCitizen,
     }
@@ -444,7 +504,8 @@ class SantaClaraCountyFormSpec(SolanoCountyFormSpec):
         F.HouseholdSize,
     }) - {F.PhoneNumberField}
     validators = [
-        gave_preferred_contact_methods
+        gave_preferred_contact_methods,
+        at_least_address_or_chose_no_mailing_address
     ]
 
 
@@ -462,12 +523,17 @@ class SantaCruzCountyFormSpec(SolanoCountyFormSpec):
     required_fields = SolanoCountyFormSpec.required_fields - {
         F.OwesCourtFees,
     }
+    validators = [
+        at_least_address_or_chose_no_mailing_address
+    ]
 
 
 class SonomaCountyFormSpec(SolanoCountyFormSpec):
     county = Counties.SONOMA
+    fields = SolanoCountyFormSpec.fields
     validators = [
-        gave_preferred_contact_methods
+        gave_preferred_contact_methods,
+        at_least_address_or_chose_no_mailing_address
     ]
 
 
@@ -497,26 +563,24 @@ class VenturaCountyFormSpec(CombinableCountyFormSpec):
         F.OnPublicBenefits,
         F.MonthlyExpenses,
         F.OwnsHome,
-        F.HouseholdSize,
-        F.HasChildren,
-        F.IsMarried,
+        F.HowManyDependents,
+        F.IsVeteran,
         F.DateOfBirthField,
         F.LastFourOfSocial,
         F.DriverLicenseOrIDNumber,
         F.OnProbationParole,
         F.WhereProbationParole,
-        F.WhenProbationParole,
         F.OwesCourtFees,
         F.ServingSentence,
         F.BeingCharged,
         F.RAPOutsideSF,
         F.WhenWhereOutsideSF,
         F.CaseNumber,
-        F.ReasonsForApplying,
         F.HowDidYouHear,
         F.AdditionalInformation,
         F.UnderstandsLimits,
         F.ConsentToRepresent,
+        F.ConsentToCourtAppearance
     }
     required_fields = {
         F.CurrentlyEmployed,
@@ -532,17 +596,35 @@ class VenturaCountyFormSpec(CombinableCountyFormSpec):
         F.BeingCharged,
         F.UnderstandsLimits,
         F.ConsentToRepresent,
+        F.ConsentToCourtAppearance
     }
     validators = [
         gave_preferred_contact_methods,
-        at_least_email_or_phone
+        at_least_email_or_phone,
+        at_least_address_or_chose_no_mailing_address
     ]
 
 
 class SantaBarbaraCountyFormSpec(VenturaCountyFormSpec):
     county = Counties.SANTA_BARBARA
-    fields = (VenturaCountyFormSpec.fields | {F.Aliases}) - {
+    fields = (VenturaCountyFormSpec.fields | {
+        F.Aliases,
+        F.ReasonsForApplying,
+        F.IsMarried,
+        F.WhenProbationParole,
+        F.HouseholdSize,
+        F.HasChildren,
+        F.SantaBarbaraCourtAppearanceChoice}) - {
         F.LastFourOfSocial,
+        F.DriverLicenseOrIDNumber,
+        F.IsVeteran,
+        F.HowManyDependents,
+        F.ConsentToCourtAppearance
+    }
+    required_fields = {
+        F.IsMarried,
+        F.HouseholdSize,
+        F.SantaBarbaraCourtAppearanceChoice
     }
 
 
@@ -577,6 +659,7 @@ class EBCLCIntakeFormSpec(CombinableOrganizationFormSpec):
         F.OwesCourtFees,
         F.HowDidYouHear,
         F.AdditionalInformation,
+        F.ConsentToCourtAppearance
     }
     required_fields = {
         F.FirstName,
@@ -592,6 +675,7 @@ class EBCLCIntakeFormSpec(CombinableOrganizationFormSpec):
         F.ReducedProbation,
         F.ServingSentence,
         F.BeingCharged,
+        F.ConsentToCourtAppearance
     }
     optional_fields = {
         F.AlternatePhoneNumberField,

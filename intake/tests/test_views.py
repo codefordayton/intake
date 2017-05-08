@@ -50,7 +50,7 @@ class TestViews(IntakeDataTestCase):
         self.assertContains(response, base_data['last_name'][0])
         self.assertContains(
             response,
-            fields.AddressField.is_recommended_error_message)
+            "The public defender needs a mailing address")
         self.assertContains(
             response,
             fields.SocialSecurityNumberField.is_recommended_error_message)

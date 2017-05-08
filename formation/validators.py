@@ -119,6 +119,33 @@ class AtLeastEmailOrPhoneValidator(CheckEmptyFieldValidator):
             raise ValidationError(errors)
 
 
+class AtLeastAddressOrChoseNoMailingAddressValidator(CheckEmptyFieldValidator):
+
+    message = _(
+        "Your attorneys need to know if you have a safe place where you can "
+        "receive mail. Please enter an address or check the box to indicate "
+        "that you do not have a mailing address at this time.")
+
+    no_checkbox_message = _("The public defender needs a mailing "
+                            "address to send you a letter with the next "
+                            "steps.")
+
+    def __call__(self, parsed_data):
+        errors = {}
+        for subfield in parsed_data["address"].keys():
+            if parsed_data['address'][subfield] == '':
+                errors[subfield] = ""
+        # if self.field_is_empty('address'):
+        if errors != {}:
+            if parsed_data['address'].get('no_mailing_address') == '':
+                errors['address'] = self.message
+            else:
+                errors['address'] = self.no_checkbox_message
+        if errors:
+            raise ValidationError(errors)
+
+at_least_address_or_chose_no_mailing_address = \
+    AtLeastAddressOrChoseNoMailingAddressValidator()
 at_least_email_or_phone = AtLeastEmailOrPhoneValidator()
 is_a_valid_choice = ValidChoiceValidator()
 are_valid_choices = MultipleValidChoiceValidator()

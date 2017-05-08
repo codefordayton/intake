@@ -85,6 +85,7 @@ FILLED_SF_DATA = MultiValueDict({
     'ssn': ['214259752'],
     'us_citizen': ['yes'],
     'consent_to_represent': ['yes'],
+    'consent_to_court_appearance': ['yes'],
     'understands_limits': ['yes'],
     'when_probation_or_parole': [''],
     'when_where_outside_sf': [''],
