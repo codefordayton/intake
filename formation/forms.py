@@ -20,27 +20,37 @@ class CombinableCountyFormSpec(CombinableFormSpec):
         counties = kwargs.get('counties', [])
         return self.county in counties
 
-    def add_nice_county_names_to_consentbox(self):
+    def build_form_class(self, *args, **kwargs):
+        form_class = super().build_form_class(*args, **kwargs)
+        self.add_nice_county_names_to_consentbox(form_class)
+        # self.modify_address_field_based_on_counties(form_class)
+        return form_class
+
+    def add_nice_county_names_to_consentbox(self, form_class):
         """
         county name generation for the consent checkbox split could
         be a little less brittle, but for now SB is the only one that
         is being excluded
         """
-        counties = self.criteria['counties']
-        appearance_consent = ConsentToCourtAppearance
-        county_names = []
-        for county in counties:
-            if COUNTY_CHOICE_DISPLAY_DICT[county] != "Santa Barbara":
-                county_names.append(COUNTY_CHOICE_DISPLAY_DICT[county])
-        formatted_county_names = oxford_comma([
-            county + " County" for county in county_names])
+        self.counties = self.criteria['counties']
+        is_for_display = issubclass(form_class, DisplayForm)
+        is_multi_sub_with_sb = (
+            'santa_barbara' in self.counties and len(self.counties) > 1)
+        if not is_for_display and is_multi_sub_with_sb:
+            appearance_consent = ConsentToCourtAppearance
+            county_names = []
+            for county in self.counties:
+                if COUNTY_CHOICE_DISPLAY_DICT[county] != "Santa Barbara":
+                    county_names.append(COUNTY_CHOICE_DISPLAY_DICT[county])
+            formatted_county_names = oxford_comma([
+                county + " County" for county in county_names])
+            index = form_class.fields.index(appearance_consent)
+            form_class.fields.remove(appearance_consent)
+            appearance_consent.update_counties(
+                appearance_consent, formatted_county_names)
+            form_class.fields.insert(index, appearance_consent)
 
-        self.fields.discard(appearance_consent)
-        appearance_consent.update_counties(
-            appearance_consent, formatted_county_names)
-        self.fields.add(appearance_consent)
-
-    def modify_address_field_based_on_counties(self):
+    def modify_address_field_based_on_counties(self, form_class):
         """
         this feels sloppy but it gets the job done; would love
         to look at other ways to handle the checkbox inclusion/
@@ -51,16 +61,21 @@ class CombinableCountyFormSpec(CombinableFormSpec):
         in the label update on the appearance consent checkbox
         """
         address_field = AddressField
-        filtered = [i for i in counties if not any(
-            stop in i for stop in COUNTIES_REQUIRING_ADDRESS)]
-        if len(filtered) == len(counties):
-            combined_spec.fields.discard(address_field)
+        counties = self.criteria['counties']
+        # do any of these counties require address
+        counties_that_dont_require_address = [
+            county for county in counties
+            if county not in COUNTIES_REQUIRING_ADDRESS
+        ]
+        if len(counties_that_dont_require_address) == len(counties):
+            self.fields.discard(address_field)
             address_field.include_no_address_checkbox(address_field)
-            combined_spec.fields.add(address_field)
+            self.fields.add(address_field)
         else:
-            combined_spec.fields.discard(address_field)
+            self.fields.discard(address_field)
             address_field.exclude_no_address_checkbox(address_field)
-            combined_spec.fields.add(address_field)
+            self.fields.add(address_field)
+
 
 class CombinableOrganizationFormSpec(CombinableFormSpec):
 
@@ -138,12 +153,12 @@ class SanFranciscoCountyFormSpec(CombinableCountyFormSpec):
     required_fields = {
         F.FirstName,
         F.LastName,
+        F.AddressField,
         F.UnderstandsLimits,
         F.ConsentToRepresent,
         F.ConsentToCourtAppearance
     }
     recommended_fields = {
-        F.AddressField,
         F.DateOfBirthField,
         F.SocialSecurityNumberField,
     }
@@ -185,7 +200,7 @@ class ContraCostaFormSpec(CombinableCountyFormSpec):
     required_fields = {
         F.FirstName,
         F.LastName,
-        # F.AddressField,
+        F.AddressField,
         F.USCitizen,
         F.CurrentlyEmployed,
         F.DateOfBirthField,
@@ -403,6 +418,7 @@ class SolanoCountyFormSpec(CombinableCountyFormSpec):
     required_fields = {
         F.FirstName,
         F.LastName,
+        F.AddressField,
         F.DateOfBirthField,
         F.OnProbationParole,
         F.OwesCourtFees,

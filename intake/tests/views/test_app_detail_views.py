@@ -181,6 +181,21 @@ class TestApplicationDetail(AppDetailFixturesBaseTestCase):
         response = self.get_page(submission)
         self.assertContains(response, 'New')
 
+    @patch('intake.notifications.slack_submissions_viewed.send')
+    def test_santa_barbara_shows_only_own_consent_answer(self, slack):
+        user = self.be_user(
+            User.objects.filter(
+                profile__organization__slug__contains='santa_barbara').first())
+        submission = factories.FormSubmissionWithOrgsFactory(
+            organizations=[
+                user.profile.organization,
+                Organization.objects.filter(slug__contains='ventura').first()])
+        response = self.get_page(submission)
+        display_form = response.context_data['display_form']
+        self.assertNotIn(
+            'consent_to_court_appearance',
+            list(display_form.get_field_keys()))
+
 
 class TestAppDetailWithTransfers(AppDetailFixturesBaseTestCase):
 

@@ -72,7 +72,6 @@ class TestCombinableFormSpec(PatchTranslationTestCase):
                 Counties.SAN_FRANCISCO,
                 Counties.CONTRA_COSTA
             ])
-        address_checkbox = F.NoMailingAddress.label
-        self.assertEqual(
-            expected_consent_county_label,
-            consent_label)
+        field_keys = list(CombinedForm.get_field_keys())
+        address_checkbox_key = 'no_mailing_address'
+        self.assertNotIn(address_checkbox_key, field_keys)

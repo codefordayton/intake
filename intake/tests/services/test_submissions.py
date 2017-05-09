@@ -33,7 +33,8 @@ class TestCreateSubmissions(TestCase):
     def test_can_create_with_form_orgs_and_app_id(self):
         # given an applicant, some orgs, and a validated form
         applicant = factories.ApplicantFactory()
-        organizations = list(Organization.objects.all()[:2])
+        organizations = list(
+            Organization.objects.filter(is_receiving_agency=True)[:2])
         Form = county_form_selector.get_combined_form_class(
             counties=ALL_COUNTY_SLUGS)
         form = Form(mock.fake.all_county_answers(), validate=True)

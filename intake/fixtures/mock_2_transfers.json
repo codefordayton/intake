@@ -1,9 +1,10 @@
 [
 {
   "model": "intake.visitor",
-  "pk": 132,
+  "pk": 168,
   "fields": {
-    "first_visit": "2017-04-25T17:42:06.025Z",
+    "uuid": "6fb68ad4-8c05-45a1-be29-de46f47ef04b",
+    "first_visit": "2017-05-09T00:39:36.215Z",
     "source": "share",
     "referrer": "http://bajoradefender.org/services/clean-slate/",
     "ip_address": "48.104.186.127"
@@ -11,9 +12,10 @@
 },
 {
   "model": "intake.visitor",
-  "pk": 133,
+  "pk": 169,
   "fields": {
-    "first_visit": "2017-04-25T17:42:06.243Z",
+    "uuid": "22ae70d9-47bd-4e1c-bc0d-9a90ec1f708d",
+    "first_visit": "2017-05-09T00:39:36.285Z",
     "source": "share",
     "referrer": "http://bajoradefender.org/services/clean-slate/",
     "ip_address": "48.104.186.127"
@@ -21,149 +23,46 @@
 },
 {
   "model": "intake.applicant",
-  "pk": 132,
+  "pk": 168,
   "fields": {
-    "visitor": 132
+    "visitor": 168
   }
 },
 {
   "model": "intake.applicant",
-  "pk": 133,
+  "pk": 169,
   "fields": {
-    "visitor": 133
+    "visitor": 169
   }
 },
 {
   "model": "intake.formsubmission",
-  "pk": 131,
+  "pk": 164,
   "fields": {
-    "applicant": 132,
+    "applicant": 168,
     "duplicate_set": null,
     "answers": {
       "contact_preferences": [
-        "prefers_email",
-        "prefers_sms"
+        "prefers_email"
       ],
-      "first_name": "Katie",
-      "middle_name": "Christopher",
-      "last_name": "Patel",
-      "preferred_pronouns": "they",
-      "phone_number": "4152124848",
-      "alternate_phone_number": "4152124848",
-      "email": "cmrtestuser@gmail.com",
-      "address": {
-        "street": "289 Harris Station",
-        "city": "Port Kathrynside",
-        "state": "AL",
-        "zip": "47870"
-      },
-      "dob": {
-        "month": "2",
-        "day": "10",
-        "year": "1985"
-      },
-      "us_citizen": "yes",
-      "being_charged": "no",
-      "serving_sentence": "no",
-      "on_probation_parole": "yes",
-      "finished_half_probation": "not_applicable",
-      "reduced_probation": "not_applicable",
-      "rap_outside_sf": "yes",
-      "when_where_outside_sf": "",
-      "has_suspended_license": "no",
-      "owes_court_fees": "yes",
-      "monthly_income": 2999,
-      "on_public_benefits": "no",
-      "owns_home": "no",
-      "household_size": 0,
-      "how_did_you_hear": "from work",
-      "additional_information": "I want help",
-      "understands_limits": "yes",
-      "consent_to_represent": "yes",
-      "declaration_letter_intro": "Eaque rerum molestiae deleniti sed aspernatur doloremque ipsam. Magni aspernatur accusamus voluptatem reiciendis aspernatur dolores. Vel cumque suscipit beatae. Aliquam velit assumenda omnis ad eius culpa mollitia vel.",
-      "declaration_letter_life_changes": "Nostrum corporis voluptas illum quos omnis magnam. Iure vero asperiores illum deleniti quia placeat. Vel eligendi repellat voluptates quaerat dolores distinctio officiis. Occaecati itaque aliquam ex repellat ab qui vitae.",
-      "declaration_letter_activities": "Modi asperiores dignissimos atque distinctio quas libero error. Quibusdam sunt sunt ipsam perspiciatis voluptate ab eum.",
-      "declaration_letter_goals": "Aspernatur esse architecto sit voluptas magnam. Et quidem ullam fugiat. Illo repellat sint pariatur tempore recusandae quod.",
-      "declaration_letter_why": "Ducimus facilis a nesciunt neque. Quia velit sit ullam repellendus commodi deleniti. Quidem facilis reiciendis reiciendis delectus aliquam saepe id. Incidunt doloribus sed perspiciatis rem maiores."
-    },
-    "first_name": "Katie",
-    "last_name": "Patel",
-    "dob": null,
-    "ssn": "",
-    "last_four": "",
-    "drivers_license_or_id": "",
-    "case_number": "",
-    "phone_number": "4152124848",
-    "alternate_phone_number": "4152124848",
-    "email": "cmrtestuser@gmail.com",
-    "reasons_for_applying": "",
-    "how_did_you_hear": "from work",
-    "additional_information": "I want help",
-    "aliases": "",
-    "pfn_number": "",
-    "contact_preferences": "['prefers_email', 'prefers_sms']",
-    "preferred_pronouns": "they",
-    "street": "289 Harris Station",
-    "city": "Port Kathrynside",
-    "state": "AL",
-    "zip": "47870",
-    "us_citizen": "yes",
-    "is_veteran": "",
-    "is_student": "",
-    "being_charged": "no",
-    "serving_sentence": "no",
-    "on_probation_parole": "yes",
-    "where_probation_or_parole": "",
-    "when_probation_or_parole": "",
-    "finished_half_probation": "not_applicable",
-    "reduced_probation": "not_applicable",
-    "rap_outside_sf": "yes",
-    "when_where_outside_sf": "",
-    "has_suspended_license": "no",
-    "owes_court_fees": "yes",
-    "currently_employed": "",
-    "monthly_income": 2999,
-    "income_source": "",
-    "on_public_benefits": "no",
-    "owns_home": "no",
-    "monthly_expenses": null,
-    "household_size": 0,
-    "dependents": "",
-    "is_married": "",
-    "has_children": "",
-    "old_uuid": "d9f1eb4df527480599add92131b7972c",
-    "anonymous_name": "Cosmic Thunder",
-    "date_received": "2017-04-17T06:22:38-07:00"
-  }
-},
-{
-  "model": "intake.formsubmission",
-  "pk": 132,
-  "fields": {
-    "applicant": 133,
-    "duplicate_set": null,
-    "answers": {
-      "contact_preferences": [
-        "prefers_email",
-        "prefers_sms"
-      ],
-      "first_name": "Brian",
-      "middle_name": "Alexis",
-      "last_name": "Huffman",
+      "first_name": "Zachary",
+      "middle_name": "Laura",
+      "last_name": "Miranda",
       "preferred_pronouns": "none",
       "phone_number": "4152124848",
       "alternate_phone_number": "4152124848",
       "email": "cmrtestuser@gmail.com",
       "address": {
-        "street": "0811 West Oval",
-        "city": "Davidside",
-        "state": "WY",
-        "zip": "19314"
+        "street": "9226 Rachel Freeway",
+        "city": "Brandtport",
+        "state": "AL",
+        "zip": "11601",
+        "has_no_mailing_address": ""
       },
       "dob": {
-        "month": "1",
-        "day": "28",
-        "year": "1965"
+        "month": "5",
+        "day": "11",
+        "year": "1986"
       },
       "us_citizen": "yes",
       "being_charged": "no",
@@ -171,21 +70,27 @@
       "on_probation_parole": "yes",
       "finished_half_probation": "not_applicable",
       "reduced_probation": "not_applicable",
-      "rap_outside_sf": "no",
+      "rap_outside_sf": "i_dont_know",
       "when_where_outside_sf": "",
       "has_suspended_license": "yes",
       "owes_court_fees": "no",
-      "monthly_income": 3001,
-      "on_public_benefits": "no",
-      "owns_home": "yes",
-      "household_size": 4,
+      "monthly_income": 2999,
+      "on_public_benefits": "yes",
+      "owns_home": "no",
+      "household_size": 2,
       "how_did_you_hear": "from work",
       "additional_information": "I want help",
       "understands_limits": "yes",
-      "consent_to_represent": "yes"
+      "consent_to_represent": "yes",
+      "consent_to_court_appearance": "yes",
+      "declaration_letter_intro": "Aspernatur doloribus iusto nemo soluta possimus. Unde accusantium totam nobis possimus enim praesentium. Non recusandae natus error repellat voluptates nesciunt doloribus. Sunt et dignissimos non fuga provident.",
+      "declaration_letter_life_changes": "Accusantium a ex ullam eum quaerat provident. Quis assumenda veritatis modi molestias voluptatum adipisci voluptate. Accusamus quia dolores tempora sint dolorum necessitatibus dolorem ullam.",
+      "declaration_letter_activities": "Est facere vitae quidem. Consectetur ab quos nemo officiis fuga illo nesciunt. Rem quidem ab exercitationem quaerat.",
+      "declaration_letter_goals": "Nesciunt laboriosam numquam officia facilis soluta. Corrupti eligendi necessitatibus delectus maiores repudiandae delectus. Inventore maiores ullam sit cumque. Hic quisquam quibusdam eligendi nihil blanditiis explicabo quasi. Inventore praesentium odit delectus.",
+      "declaration_letter_why": "Quasi quis ratione eius illum. Sapiente natus nihil voluptates voluptatibus. Neque neque dicta distinctio facilis. Quis reprehenderit blanditiis aliquam minus blanditiis."
     },
-    "first_name": "Brian",
-    "last_name": "Huffman",
+    "first_name": "Zachary",
+    "last_name": "Miranda",
     "dob": null,
     "ssn": "",
     "last_four": "",
@@ -199,12 +104,12 @@
     "additional_information": "I want help",
     "aliases": "",
     "pfn_number": "",
-    "contact_preferences": "['prefers_email', 'prefers_sms']",
+    "contact_preferences": "['prefers_email']",
     "preferred_pronouns": "none",
-    "street": "0811 West Oval",
-    "city": "Davidside",
-    "state": "WY",
-    "zip": "19314",
+    "street": "9226 Rachel Freeway",
+    "city": "Brandtport",
+    "state": "AL",
+    "zip": "11601",
     "us_citizen": "yes",
     "is_veteran": "",
     "is_student": "",
@@ -215,123 +120,188 @@
     "when_probation_or_parole": "",
     "finished_half_probation": "not_applicable",
     "reduced_probation": "not_applicable",
-    "rap_outside_sf": "no",
+    "rap_outside_sf": "i_dont_know",
     "when_where_outside_sf": "",
     "has_suspended_license": "yes",
     "owes_court_fees": "no",
     "currently_employed": "",
-    "monthly_income": 3001,
+    "monthly_income": 2999,
     "income_source": "",
-    "on_public_benefits": "no",
-    "owns_home": "yes",
+    "on_public_benefits": "yes",
+    "owns_home": "no",
     "monthly_expenses": null,
-    "household_size": 4,
+    "household_size": 2,
     "dependents": "",
     "is_married": "",
     "has_children": "",
-    "old_uuid": "8c33da97d11a4087ad4ca87a9c735d62",
-    "anonymous_name": "Golden Tortoise",
-    "date_received": "2017-04-17T22:00:57-07:00"
+    "old_uuid": "a801e36a10cc42ec84e97df1d391eedd",
+    "anonymous_name": "Strong Walrus",
+    "date_received": "2017-05-03T04:19:35-07:00"
+  }
+},
+{
+  "model": "intake.formsubmission",
+  "pk": 165,
+  "fields": {
+    "applicant": 169,
+    "duplicate_set": null,
+    "answers": {
+      "contact_preferences": [
+        "prefers_sms"
+      ],
+      "first_name": "Jason",
+      "middle_name": "George",
+      "last_name": "Roach",
+      "preferred_pronouns": "they",
+      "phone_number": "4152124848",
+      "alternate_phone_number": "4152124848",
+      "email": "cmrtestuser@gmail.com",
+      "address": {
+        "street": "232 Hicks Motorway",
+        "city": "Arellanoland",
+        "state": "TX",
+        "zip": "95124",
+        "has_no_mailing_address": ""
+      },
+      "dob": {
+        "month": "10",
+        "day": "30",
+        "year": "1984"
+      },
+      "us_citizen": "yes",
+      "being_charged": "no",
+      "serving_sentence": "no",
+      "on_probation_parole": "yes",
+      "finished_half_probation": "not_applicable",
+      "reduced_probation": "not_applicable",
+      "rap_outside_sf": "i_dont_know",
+      "when_where_outside_sf": "",
+      "has_suspended_license": "no",
+      "owes_court_fees": "yes",
+      "monthly_income": 3001,
+      "on_public_benefits": "yes",
+      "owns_home": "yes",
+      "household_size": 0,
+      "how_did_you_hear": "from work",
+      "additional_information": "I want help",
+      "understands_limits": "yes",
+      "consent_to_represent": "yes",
+      "consent_to_court_appearance": "yes"
+    },
+    "first_name": "Jason",
+    "last_name": "Roach",
+    "dob": null,
+    "ssn": "",
+    "last_four": "",
+    "drivers_license_or_id": "",
+    "case_number": "",
+    "phone_number": "4152124848",
+    "alternate_phone_number": "4152124848",
+    "email": "cmrtestuser@gmail.com",
+    "reasons_for_applying": "",
+    "how_did_you_hear": "from work",
+    "additional_information": "I want help",
+    "aliases": "",
+    "pfn_number": "",
+    "contact_preferences": "['prefers_sms']",
+    "preferred_pronouns": "they",
+    "street": "232 Hicks Motorway",
+    "city": "Arellanoland",
+    "state": "TX",
+    "zip": "95124",
+    "us_citizen": "yes",
+    "is_veteran": "",
+    "is_student": "",
+    "being_charged": "no",
+    "serving_sentence": "no",
+    "on_probation_parole": "yes",
+    "where_probation_or_parole": "",
+    "when_probation_or_parole": "",
+    "finished_half_probation": "not_applicable",
+    "reduced_probation": "not_applicable",
+    "rap_outside_sf": "i_dont_know",
+    "when_where_outside_sf": "",
+    "has_suspended_license": "no",
+    "owes_court_fees": "yes",
+    "currently_employed": "",
+    "monthly_income": 3001,
+    "income_source": "",
+    "on_public_benefits": "yes",
+    "owns_home": "yes",
+    "monthly_expenses": null,
+    "household_size": 0,
+    "dependents": "",
+    "is_married": "",
+    "has_children": "",
+    "old_uuid": "b29f83e8fa5c4d9096febc5d5f7256ca",
+    "anonymous_name": "Cool Mushroom",
+    "date_received": "2017-05-01T10:42:08-07:00"
   }
 },
 {
   "model": "intake.application",
-  "pk": 190,
+  "pk": 237,
   "fields": {
-    "created": "2017-04-25T17:42:06.192Z",
-    "updated": "2017-04-25T17:42:06.193Z",
-    "organization": [
-      "East Bay Community Law Center"
-    ],
-    "form_submission": 131,
-    "was_transferred_out": false
-  }
-},
-{
-  "model": "intake.application",
-  "pk": 189,
-  "fields": {
-    "created": "2017-04-17T13:22:38Z",
-    "updated": "2017-04-25T17:42:06.202Z",
+    "created": "2017-05-03T11:19:35Z",
+    "updated": "2017-05-09T00:39:36.271Z",
     "organization": [
       "Alameda County Public Defender's Office"
     ],
-    "form_submission": 131,
+    "form_submission": 164,
     "was_transferred_out": true
   }
 },
 {
   "model": "intake.application",
-  "pk": 192,
+  "pk": 238,
   "fields": {
-    "created": "2017-04-25T17:42:06.353Z",
-    "updated": "2017-04-25T17:42:06.353Z",
+    "created": "2017-05-09T00:39:36.262Z",
+    "updated": "2017-05-09T00:39:36.262Z",
     "organization": [
-      "Alameda County Public Defender's Office"
+      "East Bay Community Law Center"
     ],
-    "form_submission": 132,
+    "form_submission": 164,
     "was_transferred_out": false
   }
 },
 {
   "model": "intake.application",
-  "pk": 191,
+  "pk": 239,
   "fields": {
-    "created": "2017-04-18T05:00:57Z",
-    "updated": "2017-04-25T17:42:06.366Z",
+    "created": "2017-05-01T17:42:08Z",
+    "updated": "2017-05-09T00:39:36.321Z",
     "organization": [
       "East Bay Community Law Center"
     ],
-    "form_submission": 132,
+    "form_submission": 165,
     "was_transferred_out": true
   }
 },
 {
-  "model": "intake.statusupdate",
-  "pk": 189,
+  "model": "intake.application",
+  "pk": 240,
   "fields": {
-    "created": "2017-04-25T17:42:06.177Z",
-    "updated": "2017-04-25T17:42:06.187Z",
-    "status_type": 3,
-    "additional_information": "We may be able to get a fee waived for you",
-    "author": [
-      "a_pubdef_user"
+    "created": "2017-05-09T00:39:36.318Z",
+    "updated": "2017-05-09T00:39:36.318Z",
+    "organization": [
+      "Alameda County Public Defender's Office"
     ],
-    "application": 189,
-    "other_next_step": "Come to our Walk-In Clinic",
-    "next_steps": [
-      1
-    ]
+    "form_submission": 165,
+    "was_transferred_out": false
   }
 },
 {
   "model": "intake.statusupdate",
-  "pk": 190,
+  "pk": 239,
   "fields": {
-    "created": "2017-04-25T17:42:06.190Z",
-    "updated": "2017-04-25T17:42:06.190Z",
-    "status_type": 8,
-    "additional_information": "",
-    "author": [
-      "a_pubdef_user"
-    ],
-    "application": 189,
-    "other_next_step": "",
-    "next_steps": []
-  }
-},
-{
-  "model": "intake.statusupdate",
-  "pk": 191,
-  "fields": {
-    "created": "2017-04-25T17:42:06.325Z",
-    "updated": "2017-04-25T17:42:06.346Z",
+    "created": "2017-05-09T00:39:36.307Z",
+    "updated": "2017-05-09T00:39:36.315Z",
     "status_type": 4,
     "additional_information": "We may be able to get a fee waived for you",
     "author": [
       "ebclc_user"
     ],
-    "application": 191,
+    "application": 239,
     "other_next_step": "Come to our Walk-In Clinic",
     "next_steps": [
       1
@@ -340,91 +310,125 @@
 },
 {
   "model": "intake.statusupdate",
-  "pk": 192,
+  "pk": 240,
   "fields": {
-    "created": "2017-04-25T17:42:06.349Z",
-    "updated": "2017-04-25T17:42:06.349Z",
+    "created": "2017-05-09T00:39:36.317Z",
+    "updated": "2017-05-09T00:39:36.317Z",
     "status_type": 8,
     "additional_information": "",
     "author": [
       "ebclc_user"
     ],
-    "application": 191,
+    "application": 239,
+    "other_next_step": "",
+    "next_steps": []
+  }
+},
+{
+  "model": "intake.statusupdate",
+  "pk": 237,
+  "fields": {
+    "created": "2017-05-09T00:39:36.245Z",
+    "updated": "2017-05-09T00:39:36.256Z",
+    "status_type": 3,
+    "additional_information": "We may be able to get a fee waived for you",
+    "author": [
+      "a_pubdef_user"
+    ],
+    "application": 237,
+    "other_next_step": "Come to our Walk-In Clinic",
+    "next_steps": [
+      1
+    ]
+  }
+},
+{
+  "model": "intake.statusupdate",
+  "pk": 238,
+  "fields": {
+    "created": "2017-05-09T00:39:36.259Z",
+    "updated": "2017-05-09T00:39:36.260Z",
+    "status_type": 8,
+    "additional_information": "",
+    "author": [
+      "a_pubdef_user"
+    ],
+    "application": 237,
     "other_next_step": "",
     "next_steps": []
   }
 },
 {
   "model": "intake.statusnotification",
-  "pk": 189,
+  "pk": 237,
   "fields": {
-    "status_update": 189,
+    "status_update": 237,
     "contact_info": {
       "email": "cmrtestuser+notification@gmail.com"
     },
     "base_message": "Resistance is futile",
     "sent_message": "Live long and prosper",
-    "created": "2017-04-25T17:42:06.180Z"
+    "created": "2017-05-09T00:39:36.247Z"
   }
 },
 {
   "model": "intake.statusnotification",
-  "pk": 190,
+  "pk": 238,
   "fields": {
-    "status_update": 190,
+    "status_update": 238,
     "contact_info": {
       "email": "cmrtestuser+notification@gmail.com"
     },
     "base_message": "Your case has been transferred to East Bay Community Law Center.\nNext step in Alameda is to get your CA RAP sheet and send it to EBCLC. More info http://c4a.me/rap",
     "sent_message": "Your case has been transferred to East Bay Community Law Center.\nNext step in Alameda is to get your CA RAP sheet and send it to EBCLC. More info http://c4a.me/rap",
-    "created": "2017-04-25T17:42:06.220Z"
+    "created": "2017-05-09T00:39:36.277Z"
   }
 },
 {
   "model": "intake.statusnotification",
-  "pk": 191,
+  "pk": 239,
   "fields": {
-    "status_update": 191,
+    "status_update": 239,
     "contact_info": {
       "email": "cmrtestuser+notification@gmail.com"
     },
     "base_message": "Resistance is futile",
     "sent_message": "Live long and prosper",
-    "created": "2017-04-25T17:42:06.330Z"
+    "created": "2017-05-09T00:39:36.309Z"
   }
 },
 {
   "model": "intake.statusnotification",
-  "pk": 192,
+  "pk": 240,
   "fields": {
-    "status_update": 192,
+    "status_update": 240,
     "contact_info": {
       "email": "cmrtestuser+notification@gmail.com"
     },
     "base_message": "Your case has been transferred to Alameda County Public Defender's Office.\nThe Alameda Public Defender will follow up with you if they need any other information.",
     "sent_message": "Your case has been transferred to Alameda County Public Defender's Office.\nThe Alameda Public Defender will follow up with you if they need any other information.",
-    "created": "2017-04-25T17:42:06.379Z"
+    "created": "2017-05-09T00:39:36.327Z"
   }
 },
 {
   "model": "intake.applicationtransfer",
-  "pk": 7,
+  "pk": 9,
   "fields": {
-    "created": "2017-04-25T17:42:06.196Z",
-    "updated": "2017-04-25T17:42:06.197Z",
-    "status_update": 190,
-    "new_application": 190,
+    "created": "2017-05-09T00:39:36.266Z",
+    "updated": "2017-05-09T00:39:36.266Z",
+    "status_update": 238,
+    "new_application": 238,
     "reason": "Transporter malfunction"
   }
 },
 {
   "model": "intake.applicationtransfer",
-  "pk": 8,
+  "pk": 10,
   "fields": {
-    "created": "2017-04-25T17:42:06.359Z",
-    "updated": "2017-04-25T17:42:06.359Z",
-    "status_update": 192,
-    "new_application": 192,
+    "created": "2017-05-09T00:39:36.319Z",
+    "updated": "2017-05-09T00:39:36.319Z",
+    "status_update": 240,
+    "new_application": 240,
     "reason": "Transporter malfunction"
   }
 }
