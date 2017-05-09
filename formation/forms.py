@@ -7,8 +7,7 @@ from formation.validators import (
     gave_preferred_contact_methods, at_least_email_or_phone,
     at_least_address_or_chose_no_mailing_address
 )
-from intake.constants import (
-    COUNTY_CHOICE_DISPLAY_DICT, COUNTIES_REQUIRING_ADDRESS)
+from intake.constants import COUNTY_CHOICE_DISPLAY_DICT
 from project.jinja2 import oxford_comma
 from formation.fields import (
     AddressField, ConsentToCourtAppearance)
@@ -23,7 +22,7 @@ class CombinableCountyFormSpec(CombinableFormSpec):
     def build_form_class(self, *args, **kwargs):
         form_class = super().build_form_class(*args, **kwargs)
         self.add_nice_county_names_to_consentbox(form_class)
-        # self.modify_address_field_based_on_counties(form_class)
+        self.modify_address_field_based_on_counties(form_class)
         return form_class
 
     def add_nice_county_names_to_consentbox(self, form_class):
@@ -60,21 +59,11 @@ class CombinableCountyFormSpec(CombinableFormSpec):
         a mailing address // same technique worked for county names
         in the label update on the appearance consent checkbox
         """
-        address_field = AddressField
-        counties = self.criteria['counties']
-        # do any of these counties require address
-        counties_that_dont_require_address = [
-            county for county in counties
-            if county not in COUNTIES_REQUIRING_ADDRESS
-        ]
-        if len(counties_that_dont_require_address) == len(counties):
-            self.fields.discard(address_field)
-            address_field.include_no_address_checkbox(address_field)
-            self.fields.add(address_field)
+        import ipdb; ipdb.set_trace()
+        if AddressField not in form_class.required_fields:
+            AddressField.include_no_address_checkbox()
         else:
-            self.fields.discard(address_field)
-            address_field.exclude_no_address_checkbox(address_field)
-            self.fields.add(address_field)
+            AddressField.exclude_no_address_checkbox()
 
 
 class CombinableOrganizationFormSpec(CombinableFormSpec):
@@ -518,7 +507,7 @@ class SantaClaraCountyFormSpec(SolanoCountyFormSpec):
         F.MonthlyExpenses,
         F.OnPublicBenefits,
         F.HouseholdSize,
-    }) - {F.PhoneNumberField}
+    }) - {F.PhoneNumberField, F.AddressField}
     validators = [
         gave_preferred_contact_methods,
         at_least_address_or_chose_no_mailing_address
@@ -537,7 +526,7 @@ class SantaCruzCountyFormSpec(SolanoCountyFormSpec):
         F.WhenWhereOutsideSF
     }
     required_fields = SolanoCountyFormSpec.required_fields - {
-        F.OwesCourtFees,
+        F.OwesCourtFees, F.AddressField
     }
     validators = [
         at_least_address_or_chose_no_mailing_address

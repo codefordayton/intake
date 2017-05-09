@@ -101,9 +101,8 @@ class ConsentToCourtAppearance(ConsentCheckbox):
     is_required_error_message = (
         "The attorneys need your permission in order to help you")
     label = _(
-        "In {}, do you understand that attorneys need to attend "
-        "court on your behalf, even if you aren't there?").format(
-        "most counties in California")
+        "Do you understand that attorneys need to attend "
+        "court on your behalf, even if you aren't there?")
     agreement_text = _("Yes, I understand")
 
     def update_counties(self, formatted_county_names):
@@ -387,12 +386,14 @@ class AddressField(MultiValueField):
         else:
             return "{street}, {city}, {state} {zip}".format(**current)
 
-    def include_no_address_checkbox(self):
-        self.subfields.append(NoMailingAddress)
+    @classmethod
+    def include_no_address_checkbox(cls):
+        cls.subfields.append(NoMailingAddress)
 
-    def exclude_no_address_checkbox(self):
-        if NoMailingAddress in self.subfields:
-            self.subfields.remove(NoMailingAddress)
+    @classmethod
+    def exclude_no_address_checkbox(cls):
+        if NoMailingAddress in cls.subfields:
+            cls.subfields.remove(NoMailingAddress)
 
 
 ###

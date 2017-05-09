@@ -121,7 +121,7 @@ class AtLeastEmailOrPhoneValidator(CheckEmptyFieldValidator):
 
 class AtLeastAddressOrChoseNoMailingAddressValidator(CheckEmptyFieldValidator):
 
-    message = _(
+    checkbox_message = _(
         "Your attorneys need to know if you have a safe place where you can "
         "receive mail. Please enter an address or check the box to indicate "
         "that you do not have a mailing address at this time.")
@@ -131,18 +131,37 @@ class AtLeastAddressOrChoseNoMailingAddressValidator(CheckEmptyFieldValidator):
                             "steps.")
 
     def __call__(self, parsed_data):
+        """
+        no values at all -->
+            if checkbox exists --> checkbox message
+            else standard message
+        partial address but checkbox not checked -->
+            if checkbox exists --> checkbox message
+            else standard message
+        no address data but checkbox checked --> pass
+
+        partial address but checkbox checked --> pass
+        no checkbox checked but address filled --> pass
+        checkbox checked and full address --> pass
+        """
         errors = {}
-        for subfield in parsed_data["address"].keys():
-            if parsed_data['address'][subfield] == '':
-                errors[subfield] = ""
-        # if self.field_is_empty('address'):
-        if errors != {}:
-            if parsed_data['address'].get('has_no_mailing_address') == '':
-                errors['address'] = self.message
-            else:
-                errors['address'] = self.no_checkbox_message
+        if 'address' in parsed_data:
+            has_all_address_components = all([
+                len(parsed_data['address'][key])
+                for key in parsed_data['address']
+                if key != 'has_no_mailing_address'
+            ])
+            if 'has_no_mailing_address' in parsed_data['address']:
+                checked = parsed_data['address'].get(
+                    'has_no_mailing_address', '') == 'yes'
+                if not checked and not has_all_address_components:
+                    errors['address'] = [
+                        ValidationError(self.checkbox_message)]
+            elif not has_all_address_components:
+                errors['address'] = [ValidationError(self.no_checkbox_message)]
         if errors:
             raise ValidationError(errors)
+
 
 at_least_address_or_chose_no_mailing_address = \
     AtLeastAddressOrChoseNoMailingAddressValidator()
