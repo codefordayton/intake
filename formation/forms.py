@@ -21,31 +21,36 @@ class CombinableCountyFormSpec(CombinableFormSpec):
         return self.county in counties
 
     def build_form_class(self, *args, **kwargs):
-        self.add_nice_county_names_to_consentbox()
-        self.modify_address_field_based_on_counties()
-        return super().build_form_class(*args, **kwargs)
+        form_class = super().build_form_class(*args, **kwargs)
+        self.add_nice_county_names_to_consentbox(form_class)
+        # self.modify_address_field_based_on_counties(form_class)
+        return form_class
 
-    def add_nice_county_names_to_consentbox(self):
+    def add_nice_county_names_to_consentbox(self, form_class):
         """
         county name generation for the consent checkbox split could
         be a little less brittle, but for now SB is the only one that
         is being excluded
         """
         self.counties = self.criteria['counties']
-        appearance_consent = ConsentToCourtAppearance
-        county_names = []
-        for county in self.counties:
-            if COUNTY_CHOICE_DISPLAY_DICT[county] != "Santa Barbara":
-                county_names.append(COUNTY_CHOICE_DISPLAY_DICT[county])
-        formatted_county_names = oxford_comma([
-            county + " County" for county in county_names])
+        is_for_display = issubclass(form_class, DisplayForm)
+        is_multi_sub_with_sb = (
+            'santa_barbara' in self.counties and len(self.counties) > 1)
+        if not is_for_display and is_multi_sub_with_sb:
+            appearance_consent = ConsentToCourtAppearance
+            county_names = []
+            for county in self.counties:
+                if COUNTY_CHOICE_DISPLAY_DICT[county] != "Santa Barbara":
+                    county_names.append(COUNTY_CHOICE_DISPLAY_DICT[county])
+            formatted_county_names = oxford_comma([
+                county + " County" for county in county_names])
+            index = form_class.fields.index(appearance_consent)
+            form_class.fields.remove(appearance_consent)
+            appearance_consent.update_counties(
+                appearance_consent, formatted_county_names)
+            form_class.fields.insert(index, appearance_consent)
 
-        self.fields.discard(appearance_consent)
-        appearance_consent.update_counties(
-            appearance_consent, formatted_county_names)
-        self.fields.add(appearance_consent)
-
-    def modify_address_field_based_on_counties(self):
+    def modify_address_field_based_on_counties(self, form_class):
         """
         this feels sloppy but it gets the job done; would love
         to look at other ways to handle the checkbox inclusion/
