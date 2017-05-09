@@ -32,7 +32,7 @@ def create_submission(form, organizations, applicant_id):
     address = submission.answers['address']
     for component in address:
         existing = address.get(component, None)
-        if existing:
+        if existing and hasattr(submission, component):
             setattr(submission, component, existing)
     submission.save()
 

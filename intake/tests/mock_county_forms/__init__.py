@@ -325,7 +325,10 @@ class Provider(BaseProvider):
         return data
 
     def santa_barbara_pubdef_answers(self, **overrides):
-        return self.ventura_pubdef_answers(**overrides)
+        data = self.ventura_pubdef_answers(**overrides)
+        data['is_okay_with_not_attending_court'] = 'yes'
+        data['address.has_no_mailing_address'] = ''
+        return data
 
     def all_county_answers(self, **overrides):
         data = {
@@ -339,6 +342,7 @@ class Provider(BaseProvider):
             **self.fresno_pubdef_answers(),
             **self.sonoma_pubdef_answers(),
             **self.tulare_pubdef_answers(),
+            **self.santa_barbara_pubdef_answers(),
         }
         data.update(overrides)
         return data

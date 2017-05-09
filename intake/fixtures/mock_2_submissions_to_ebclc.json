@@ -1,9 +1,10 @@
 [
 {
   "model": "intake.visitor",
-  "pk": 105,
+  "pk": 141,
   "fields": {
-    "first_visit": "2017-04-25T17:41:54.216Z",
+    "uuid": "c9649dcc-5517-42ea-8242-99e4bbc43252",
+    "first_visit": "2017-05-09T00:39:31.052Z",
     "source": "share",
     "referrer": "http://bajoradefender.org/services/clean-slate/",
     "ip_address": "48.104.186.127"
@@ -11,9 +12,10 @@
 },
 {
   "model": "intake.visitor",
-  "pk": 106,
+  "pk": 142,
   "fields": {
-    "first_visit": "2017-04-25T17:41:54.261Z",
+    "uuid": "25796d6b-9ac6-48a0-b291-35e8c1393303",
+    "first_visit": "2017-05-09T00:39:31.074Z",
     "source": "share",
     "referrer": "http://bajoradefender.org/services/clean-slate/",
     "ip_address": "48.104.186.127"
@@ -21,67 +23,70 @@
 },
 {
   "model": "intake.applicant",
-  "pk": 105,
+  "pk": 141,
   "fields": {
-    "visitor": 105
+    "visitor": 141
   }
 },
 {
   "model": "intake.applicant",
-  "pk": 106,
+  "pk": 142,
   "fields": {
-    "visitor": 106
+    "visitor": 142
   }
 },
 {
   "model": "intake.formsubmission",
-  "pk": 104,
+  "pk": 137,
   "fields": {
-    "applicant": 105,
+    "applicant": 141,
     "duplicate_set": null,
     "answers": {
       "contact_preferences": [
+        "prefers_sms",
         "prefers_email"
       ],
-      "first_name": "Debra",
-      "middle_name": "Meghan",
-      "last_name": "Lee",
+      "first_name": "Crystal",
+      "middle_name": "Charles",
+      "last_name": "Valencia",
       "preferred_pronouns": "they",
       "phone_number": "4152124848",
       "alternate_phone_number": "4152124848",
       "email": "cmrtestuser@gmail.com",
       "address": {
-        "street": "0290 Browning Plain",
-        "city": "New Caitlynstad",
-        "state": "KY",
-        "zip": "78848"
+        "street": "638 Villarreal Lakes Suite 298",
+        "city": "East Robertmouth",
+        "state": "NM",
+        "zip": "00943",
+        "has_no_mailing_address": ""
       },
       "dob": {
-        "month": "7",
-        "day": "20",
-        "year": "1970"
+        "month": "6",
+        "day": "7",
+        "year": "1985"
       },
       "us_citizen": "yes",
-      "being_charged": "no",
+      "being_charged": "yes",
       "serving_sentence": "no",
       "on_probation_parole": "yes",
       "finished_half_probation": "not_applicable",
       "reduced_probation": "not_applicable",
       "rap_outside_sf": "no",
       "when_where_outside_sf": "",
-      "has_suspended_license": "yes",
+      "has_suspended_license": "no",
       "owes_court_fees": "yes",
       "monthly_income": 3001,
-      "on_public_benefits": "yes",
+      "on_public_benefits": "no",
       "owns_home": "yes",
-      "household_size": 0,
+      "household_size": 1,
       "how_did_you_hear": "from work",
       "additional_information": "I want help",
       "understands_limits": "yes",
-      "consent_to_represent": "yes"
+      "consent_to_represent": "yes",
+      "consent_to_court_appearance": "yes"
     },
-    "first_name": "Debra",
-    "last_name": "Lee",
+    "first_name": "Crystal",
+    "last_name": "Valencia",
     "dob": null,
     "ssn": "",
     "last_four": "",
@@ -95,16 +100,16 @@
     "additional_information": "I want help",
     "aliases": "",
     "pfn_number": "",
-    "contact_preferences": "['prefers_email']",
+    "contact_preferences": "['prefers_sms', 'prefers_email']",
     "preferred_pronouns": "they",
-    "street": "0290 Browning Plain",
-    "city": "New Caitlynstad",
-    "state": "KY",
-    "zip": "78848",
+    "street": "638 Villarreal Lakes Suite 298",
+    "city": "East Robertmouth",
+    "state": "NM",
+    "zip": "00943",
     "us_citizen": "yes",
     "is_veteran": "",
     "is_student": "",
-    "being_charged": "no",
+    "being_charged": "yes",
     "serving_sentence": "no",
     "on_probation_parole": "yes",
     "where_probation_or_parole": "",
@@ -113,72 +118,74 @@
     "reduced_probation": "not_applicable",
     "rap_outside_sf": "no",
     "when_where_outside_sf": "",
-    "has_suspended_license": "yes",
+    "has_suspended_license": "no",
     "owes_court_fees": "yes",
     "currently_employed": "",
     "monthly_income": 3001,
     "income_source": "",
-    "on_public_benefits": "yes",
+    "on_public_benefits": "no",
     "owns_home": "yes",
     "monthly_expenses": null,
-    "household_size": 0,
+    "household_size": 1,
     "dependents": "",
     "is_married": "",
     "has_children": "",
-    "old_uuid": "5bf210dd74934b868d992b4054090a70",
-    "anonymous_name": "Purple Beetle",
-    "date_received": "2017-04-14T03:29:21-07:00"
+    "old_uuid": "9f9151e4bbde42e79aa93caa74486278",
+    "anonymous_name": "Amicable Hamster",
+    "date_received": "2017-05-06T11:26:32-07:00"
   }
 },
 {
   "model": "intake.formsubmission",
-  "pk": 105,
+  "pk": 138,
   "fields": {
-    "applicant": 106,
+    "applicant": 142,
     "duplicate_set": null,
     "answers": {
       "contact_preferences": [
         "prefers_sms"
       ],
-      "first_name": "Jerry",
-      "middle_name": "Rachel",
-      "last_name": "Zimmerman",
+      "first_name": "Charles",
+      "middle_name": "Steven",
+      "last_name": "Hancock",
       "preferred_pronouns": "she",
       "phone_number": "4152124848",
       "alternate_phone_number": "4152124848",
       "email": "cmrtestuser@gmail.com",
       "address": {
-        "street": "08603 Danielle Garden",
-        "city": "Kathrynton",
-        "state": "NM",
-        "zip": "39156"
+        "street": "3573 Mark Parks",
+        "city": "Keithview",
+        "state": "MH",
+        "zip": "87930",
+        "has_no_mailing_address": ""
       },
       "dob": {
-        "month": "9",
-        "day": "16",
-        "year": "1997"
+        "month": "6",
+        "day": "29",
+        "year": "1973"
       },
       "us_citizen": "yes",
       "being_charged": "no",
-      "serving_sentence": "yes",
+      "serving_sentence": "no",
       "on_probation_parole": "yes",
       "finished_half_probation": "not_applicable",
       "reduced_probation": "not_applicable",
       "rap_outside_sf": "no",
       "when_where_outside_sf": "",
-      "has_suspended_license": "yes",
-      "owes_court_fees": "yes",
+      "has_suspended_license": "no",
+      "owes_court_fees": "no",
       "monthly_income": 3001,
       "on_public_benefits": "yes",
       "owns_home": "yes",
-      "household_size": 4,
+      "household_size": 1,
       "how_did_you_hear": "from work",
       "additional_information": "I want help",
       "understands_limits": "yes",
-      "consent_to_represent": "yes"
+      "consent_to_represent": "yes",
+      "consent_to_court_appearance": "yes"
     },
-    "first_name": "Jerry",
-    "last_name": "Zimmerman",
+    "first_name": "Charles",
+    "last_name": "Hancock",
     "dob": null,
     "ssn": "",
     "last_four": "",
@@ -194,15 +201,15 @@
     "pfn_number": "",
     "contact_preferences": "['prefers_sms']",
     "preferred_pronouns": "she",
-    "street": "08603 Danielle Garden",
-    "city": "Kathrynton",
-    "state": "NM",
-    "zip": "39156",
+    "street": "3573 Mark Parks",
+    "city": "Keithview",
+    "state": "MH",
+    "zip": "87930",
     "us_citizen": "yes",
     "is_veteran": "",
     "is_student": "",
     "being_charged": "no",
-    "serving_sentence": "yes",
+    "serving_sentence": "no",
     "on_probation_parole": "yes",
     "where_probation_or_parole": "",
     "when_probation_or_parole": "",
@@ -210,61 +217,61 @@
     "reduced_probation": "not_applicable",
     "rap_outside_sf": "no",
     "when_where_outside_sf": "",
-    "has_suspended_license": "yes",
-    "owes_court_fees": "yes",
+    "has_suspended_license": "no",
+    "owes_court_fees": "no",
     "currently_employed": "",
     "monthly_income": 3001,
     "income_source": "",
     "on_public_benefits": "yes",
     "owns_home": "yes",
     "monthly_expenses": null,
-    "household_size": 4,
+    "household_size": 1,
     "dependents": "",
     "is_married": "",
     "has_children": "",
-    "old_uuid": "5931180956354de8866e32eb1317bcb2",
-    "anonymous_name": "Cerulean Lotus",
-    "date_received": "2017-04-17T19:46:20-07:00"
+    "old_uuid": "196b0ce581604f2896eb0be8a543a7d0",
+    "anonymous_name": "Caring Echidna",
+    "date_received": "2017-05-04T03:34:06-07:00"
   }
 },
 {
   "model": "intake.application",
-  "pk": 149,
+  "pk": 197,
   "fields": {
-    "created": "2017-04-14T10:29:21Z",
-    "updated": "2017-04-25T17:41:54.251Z",
+    "created": "2017-05-06T18:26:32Z",
+    "updated": "2017-05-09T00:39:31.067Z",
     "organization": [
       "East Bay Community Law Center"
     ],
-    "form_submission": 104,
+    "form_submission": 137,
     "was_transferred_out": false
   }
 },
 {
   "model": "intake.application",
-  "pk": 150,
+  "pk": 198,
   "fields": {
-    "created": "2017-04-18T02:46:20Z",
-    "updated": "2017-04-25T17:41:54.292Z",
+    "created": "2017-05-04T10:34:06Z",
+    "updated": "2017-05-09T00:39:31.087Z",
     "organization": [
       "East Bay Community Law Center"
     ],
-    "form_submission": 105,
+    "form_submission": 138,
     "was_transferred_out": false
   }
 },
 {
   "model": "intake.statusupdate",
-  "pk": 149,
+  "pk": 197,
   "fields": {
-    "created": "2017-04-25T17:41:57.551Z",
-    "updated": "2017-04-25T17:41:57.659Z",
+    "created": "2017-05-09T00:39:31.942Z",
+    "updated": "2017-05-09T00:39:31.964Z",
     "status_type": 5,
     "additional_information": "We may be able to get a fee waived for you",
     "author": [
       "ebclc_user"
     ],
-    "application": 149,
+    "application": 197,
     "other_next_step": "Come to our Walk-In Clinic",
     "next_steps": [
       1
@@ -273,16 +280,16 @@
 },
 {
   "model": "intake.statusupdate",
-  "pk": 150,
+  "pk": 198,
   "fields": {
-    "created": "2017-04-25T17:41:57.680Z",
-    "updated": "2017-04-25T17:41:57.699Z",
+    "created": "2017-05-09T00:39:31.995Z",
+    "updated": "2017-05-09T00:39:32.020Z",
     "status_type": 6,
     "additional_information": "We may be able to get a fee waived for you",
     "author": [
       "ebclc_user"
     ],
-    "application": 150,
+    "application": 198,
     "other_next_step": "Come to our Walk-In Clinic",
     "next_steps": [
       1
@@ -291,28 +298,28 @@
 },
 {
   "model": "intake.statusnotification",
-  "pk": 149,
+  "pk": 197,
   "fields": {
-    "status_update": 149,
+    "status_update": 197,
     "contact_info": {
       "email": "cmrtestuser+notification@gmail.com"
     },
     "base_message": "Resistance is futile",
     "sent_message": "Live long and prosper",
-    "created": "2017-04-25T17:41:57.586Z"
+    "created": "2017-05-09T00:39:31.946Z"
   }
 },
 {
   "model": "intake.statusnotification",
-  "pk": 150,
+  "pk": 198,
   "fields": {
-    "status_update": 150,
+    "status_update": 198,
     "contact_info": {
       "email": "cmrtestuser+notification@gmail.com"
     },
     "base_message": "Resistance is futile",
     "sent_message": "Live long and prosper",
-    "created": "2017-04-25T17:41:57.685Z"
+    "created": "2017-05-09T00:39:32.001Z"
   }
 }
 ]

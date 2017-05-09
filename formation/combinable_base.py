@@ -99,9 +99,6 @@ class FormSpecSelector:
             else:
                 combined_spec |= spec
         combined_spec.criteria = criteria
-        # combined_spec.add_nice_county_names_to_consentbox()
-        # combined_spec.modify_address_field_based_on_counties()
-
         if not combined_spec:
             raise NoFormSpecError(
                 "No form spec found with criteria={} and specs={}".format(

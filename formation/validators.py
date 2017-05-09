@@ -137,7 +137,7 @@ class AtLeastAddressOrChoseNoMailingAddressValidator(CheckEmptyFieldValidator):
                 errors[subfield] = ""
         # if self.field_is_empty('address'):
         if errors != {}:
-            if parsed_data['address'].get('no_mailing_address') == '':
+            if parsed_data['address'].get('has_no_mailing_address') == '':
                 errors['address'] = self.message
             else:
                 errors['address'] = self.no_checkbox_message

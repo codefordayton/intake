@@ -73,6 +73,8 @@ class PDFFormDisplay:
         ['how_did_you_hear'],
         ['understands_limits'],
         ['consent_to_represent'],
+        ['consent_to_court_appearance'],
+        ['is_okay_with_not_attending_court'],
         ['additional_information'],
     ]
 

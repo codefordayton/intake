@@ -1,9 +1,10 @@
 [
 {
   "model": "intake.visitor",
-  "pk": 111,
+  "pk": 147,
   "fields": {
-    "first_visit": "2017-04-25T17:41:54.462Z",
+    "uuid": "f5951f2b-65dd-4196-a0d4-101f04bcc91c",
+    "first_visit": "2017-05-09T00:39:31.216Z",
     "source": "share",
     "referrer": "http://bajoradefender.org/services/clean-slate/",
     "ip_address": "48.104.186.127"
@@ -11,9 +12,10 @@
 },
 {
   "model": "intake.visitor",
-  "pk": 112,
+  "pk": 148,
   "fields": {
-    "first_visit": "2017-04-25T17:41:54.505Z",
+    "uuid": "fc485895-3e29-4391-830c-e3ad9ec4392a",
+    "first_visit": "2017-05-09T00:39:31.258Z",
     "source": "share",
     "referrer": "http://bajoradefender.org/services/clean-slate/",
     "ip_address": "48.104.186.127"
@@ -21,137 +23,41 @@
 },
 {
   "model": "intake.applicant",
-  "pk": 111,
+  "pk": 147,
   "fields": {
-    "visitor": 111
+    "visitor": 147
   }
 },
 {
   "model": "intake.applicant",
-  "pk": 112,
+  "pk": 148,
   "fields": {
-    "visitor": 112
+    "visitor": 148
   }
 },
 {
   "model": "intake.formsubmission",
-  "pk": 110,
+  "pk": 143,
   "fields": {
-    "applicant": 111,
+    "applicant": 147,
     "duplicate_set": null,
     "answers": {
       "contact_preferences": [
+        "prefers_email",
         "prefers_sms"
       ],
-      "first_name": "Andrew",
-      "middle_name": "Marcia",
-      "last_name": "Morales",
+      "first_name": "Tabitha",
+      "middle_name": "Kevin",
+      "last_name": "Petersen",
       "phone_number": "4152124848",
       "alternate_phone_number": "4152124848",
       "email": "cmrtestuser@gmail.com",
-      "address": {
-        "street": "773 Chen Club",
-        "city": "Gomezville",
-        "state": "NM",
-        "zip": "15482"
-      },
       "dob": {
         "month": "10",
-        "day": "18",
-        "year": "1970"
+        "day": "23",
+        "year": "1999"
       },
-      "case_number": "C5744-045",
-      "being_charged": "yes",
-      "serving_sentence": "no",
-      "on_probation_parole": "yes",
-      "where_probation_or_parole": "Yolo County",
-      "when_probation_or_parole": "2018",
-      "rap_outside_sf": "no",
-      "when_where_outside_sf": "",
-      "owes_court_fees": "yes",
-      "how_did_you_hear": "from work",
-      "additional_information": "I want help",
-      "understands_limits": "yes",
-      "consent_to_represent": "yes"
-    },
-    "first_name": "Andrew",
-    "last_name": "Morales",
-    "dob": null,
-    "ssn": "",
-    "last_four": "",
-    "drivers_license_or_id": "",
-    "case_number": "C5744-045",
-    "phone_number": "4152124848",
-    "alternate_phone_number": "4152124848",
-    "email": "cmrtestuser@gmail.com",
-    "reasons_for_applying": "",
-    "how_did_you_hear": "from work",
-    "additional_information": "I want help",
-    "aliases": "",
-    "pfn_number": "",
-    "contact_preferences": "['prefers_sms']",
-    "preferred_pronouns": "",
-    "street": "773 Chen Club",
-    "city": "Gomezville",
-    "state": "NM",
-    "zip": "15482",
-    "us_citizen": "",
-    "is_veteran": "",
-    "is_student": "",
-    "being_charged": "yes",
-    "serving_sentence": "no",
-    "on_probation_parole": "yes",
-    "where_probation_or_parole": "Yolo County",
-    "when_probation_or_parole": "2018",
-    "finished_half_probation": "",
-    "reduced_probation": "",
-    "rap_outside_sf": "no",
-    "when_where_outside_sf": "",
-    "has_suspended_license": "",
-    "owes_court_fees": "yes",
-    "currently_employed": "",
-    "monthly_income": null,
-    "income_source": "",
-    "on_public_benefits": "",
-    "owns_home": "",
-    "monthly_expenses": null,
-    "household_size": null,
-    "dependents": "",
-    "is_married": "",
-    "has_children": "",
-    "old_uuid": "9847eeb6fe524adf8e91d9f5a6ea219a",
-    "anonymous_name": "Strong Sailboat",
-    "date_received": "2017-04-16T20:23:41-07:00"
-  }
-},
-{
-  "model": "intake.formsubmission",
-  "pk": 111,
-  "fields": {
-    "applicant": 112,
-    "duplicate_set": null,
-    "answers": {
-      "contact_preferences": [
-        "prefers_sms"
-      ],
-      "first_name": "Heidi",
-      "middle_name": "Tracey",
-      "last_name": "Greer",
-      "phone_number": "4152124848",
-      "alternate_phone_number": "4152124848",
-      "email": "cmrtestuser@gmail.com",
-      "address": {
-        "street": "97273 Dillon Pass",
-        "city": "Wongport",
-        "state": "ND",
-        "zip": "64133"
-      },
-      "dob": {
-        "month": "12",
-        "day": "11",
-        "year": "1990"
-      },
-      "case_number": "C3015-978",
+      "case_number": "C1436-238",
       "being_charged": "no",
       "serving_sentence": "no",
       "on_probation_parole": "yes",
@@ -163,15 +69,16 @@
       "how_did_you_hear": "from work",
       "additional_information": "I want help",
       "understands_limits": "yes",
-      "consent_to_represent": "yes"
+      "consent_to_represent": "yes",
+      "consent_to_court_appearance": "yes"
     },
-    "first_name": "Heidi",
-    "last_name": "Greer",
+    "first_name": "Tabitha",
+    "last_name": "Petersen",
     "dob": null,
     "ssn": "",
     "last_four": "",
     "drivers_license_or_id": "",
-    "case_number": "C3015-978",
+    "case_number": "C1436-238",
     "phone_number": "4152124848",
     "alternate_phone_number": "4152124848",
     "email": "cmrtestuser@gmail.com",
@@ -180,12 +87,12 @@
     "additional_information": "I want help",
     "aliases": "",
     "pfn_number": "",
-    "contact_preferences": "['prefers_sms']",
+    "contact_preferences": "['prefers_email', 'prefers_sms']",
     "preferred_pronouns": "",
-    "street": "97273 Dillon Pass",
-    "city": "Wongport",
-    "state": "ND",
-    "zip": "64133",
+    "street": "",
+    "city": "",
+    "state": "",
+    "zip": "",
     "us_citizen": "",
     "is_veteran": "",
     "is_student": "",
@@ -210,49 +117,135 @@
     "dependents": "",
     "is_married": "",
     "has_children": "",
-    "old_uuid": "f8508bacbb4d4493b1bd1d51823093a1",
-    "anonymous_name": "Friendly Galleon",
-    "date_received": "2017-04-22T09:10:03-07:00"
+    "old_uuid": "48879fb23b354ebfab39cd6a296b0d10",
+    "anonymous_name": "Bold Koala",
+    "date_received": "2017-05-05T15:40:41-07:00"
+  }
+},
+{
+  "model": "intake.formsubmission",
+  "pk": 144,
+  "fields": {
+    "applicant": 148,
+    "duplicate_set": null,
+    "answers": {
+      "contact_preferences": [
+        "prefers_email"
+      ],
+      "first_name": "Kristi",
+      "middle_name": "Deborah",
+      "last_name": "Juarez",
+      "phone_number": "4152124848",
+      "alternate_phone_number": "4152124848",
+      "email": "cmrtestuser@gmail.com",
+      "dob": {
+        "month": "1",
+        "day": "25",
+        "year": "1990"
+      },
+      "case_number": "C3664-400",
+      "being_charged": "no",
+      "serving_sentence": "no",
+      "on_probation_parole": "yes",
+      "where_probation_or_parole": "Yolo County",
+      "when_probation_or_parole": "2018",
+      "rap_outside_sf": "no",
+      "when_where_outside_sf": "",
+      "owes_court_fees": "no",
+      "how_did_you_hear": "from work",
+      "additional_information": "I want help",
+      "understands_limits": "yes",
+      "consent_to_represent": "yes",
+      "consent_to_court_appearance": "yes"
+    },
+    "first_name": "Kristi",
+    "last_name": "Juarez",
+    "dob": null,
+    "ssn": "",
+    "last_four": "",
+    "drivers_license_or_id": "",
+    "case_number": "C3664-400",
+    "phone_number": "4152124848",
+    "alternate_phone_number": "4152124848",
+    "email": "cmrtestuser@gmail.com",
+    "reasons_for_applying": "",
+    "how_did_you_hear": "from work",
+    "additional_information": "I want help",
+    "aliases": "",
+    "pfn_number": "",
+    "contact_preferences": "['prefers_email']",
+    "preferred_pronouns": "",
+    "street": "",
+    "city": "",
+    "state": "",
+    "zip": "",
+    "us_citizen": "",
+    "is_veteran": "",
+    "is_student": "",
+    "being_charged": "no",
+    "serving_sentence": "no",
+    "on_probation_parole": "yes",
+    "where_probation_or_parole": "Yolo County",
+    "when_probation_or_parole": "2018",
+    "finished_half_probation": "",
+    "reduced_probation": "",
+    "rap_outside_sf": "no",
+    "when_where_outside_sf": "",
+    "has_suspended_license": "",
+    "owes_court_fees": "no",
+    "currently_employed": "",
+    "monthly_income": null,
+    "income_source": "",
+    "on_public_benefits": "",
+    "owns_home": "",
+    "monthly_expenses": null,
+    "household_size": null,
+    "dependents": "",
+    "is_married": "",
+    "has_children": "",
+    "old_uuid": "5dee3363e7fa4387a99238fc9e69eec6",
+    "anonymous_name": "Amber Flounder",
+    "date_received": "2017-04-29T21:22:53-07:00"
   }
 },
 {
   "model": "intake.application",
-  "pk": 155,
+  "pk": 203,
   "fields": {
-    "created": "2017-04-17T03:23:41Z",
-    "updated": "2017-04-25T17:41:54.495Z",
+    "created": "2017-05-05T22:40:41Z",
+    "updated": "2017-05-09T00:39:31.250Z",
     "organization": [
       "San Diego County Public Defender"
     ],
-    "form_submission": 110,
+    "form_submission": 143,
     "was_transferred_out": false
   }
 },
 {
   "model": "intake.application",
-  "pk": 156,
+  "pk": 204,
   "fields": {
-    "created": "2017-04-22T16:10:03Z",
-    "updated": "2017-04-25T17:41:54.524Z",
+    "created": "2017-04-30T04:22:53Z",
+    "updated": "2017-05-09T00:39:31.272Z",
     "organization": [
       "San Diego County Public Defender"
     ],
-    "form_submission": 111,
+    "form_submission": 144,
     "was_transferred_out": false
   }
 },
 {
   "model": "intake.statusupdate",
-  "pk": 155,
+  "pk": 203,
   "fields": {
-    "created": "2017-04-25T17:41:58.225Z",
-    "updated": "2017-04-25T17:41:58.239Z",
+    "created": "2017-05-09T00:39:32.414Z",
+    "updated": "2017-05-09T00:39:32.469Z",
     "status_type": 4,
     "additional_information": "We may be able to get a fee waived for you",
     "author": [
       "san_diego_pubdef_user"
     ],
-    "application": 155,
+    "application": 203,
     "other_next_step": "Come to our Walk-In Clinic",
     "next_steps": [
       1
@@ -261,16 +254,16 @@
 },
 {
   "model": "intake.statusupdate",
-  "pk": 156,
+  "pk": 204,
   "fields": {
-    "created": "2017-04-25T17:41:58.379Z",
-    "updated": "2017-04-25T17:41:58.515Z",
+    "created": "2017-05-09T00:39:32.486Z",
+    "updated": "2017-05-09T00:39:32.503Z",
     "status_type": 5,
     "additional_information": "We may be able to get a fee waived for you",
     "author": [
       "san_diego_pubdef_user"
     ],
-    "application": 156,
+    "application": 204,
     "other_next_step": "Come to our Walk-In Clinic",
     "next_steps": [
       1
@@ -279,28 +272,28 @@
 },
 {
   "model": "intake.statusnotification",
-  "pk": 155,
+  "pk": 203,
   "fields": {
-    "status_update": 155,
+    "status_update": 203,
     "contact_info": {
       "email": "cmrtestuser+notification@gmail.com"
     },
     "base_message": "Resistance is futile",
     "sent_message": "Live long and prosper",
-    "created": "2017-04-25T17:41:58.228Z"
+    "created": "2017-05-09T00:39:32.418Z"
   }
 },
 {
   "model": "intake.statusnotification",
-  "pk": 156,
+  "pk": 204,
   "fields": {
-    "status_update": 156,
+    "status_update": 204,
     "contact_info": {
       "email": "cmrtestuser+notification@gmail.com"
     },
     "base_message": "Resistance is futile",
     "sent_message": "Live long and prosper",
-    "created": "2017-04-25T17:41:58.413Z"
+    "created": "2017-05-09T00:39:32.489Z"
   }
 }
 ]

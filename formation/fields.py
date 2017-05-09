@@ -6,14 +6,14 @@ from formation.field_types import (
     CharField, MultilineCharField, IntegerField, WholeDollarField, ChoiceField,
     YesNoField, YesNoIDontKnowField, MultipleChoiceField, MultiValueField,
     PhoneField, FormNote, DateTimeField, ConsentCheckbox,
-    NOT_APPLICABLE, YES_NO_IDK_CHOICES
+    NOT_APPLICABLE, YES_NO_IDK_CHOICES, YES
 )
 from intake.constants import (
     COUNTY_CHOICES, CONTACT_PREFERENCE_CHOICES, REASON_FOR_APPLYING_CHOICES,
     GENDER_PRONOUN_CHOICES, DECLARATION_LETTER_REVIEW_CHOICES,
     COUNTY_CHOICE_DISPLAY_DICT, SANTA_BARBARA_COURT_CHOICES
 )
-from project.jinja2 import namify, oxford_comma
+from project.jinja2 import namify
 
 ###
 # Meta fields about the application
@@ -100,25 +100,26 @@ class ConsentToCourtAppearance(ConsentCheckbox):
     context_key = "consent_to_court_appearance"
     is_required_error_message = (
         "The attorneys need your permission in order to help you")
-    template_name = "formation/consent_to_court_appearance.jinja"
-
-    # default label, will be overridden in template
     label = _(
-        "In most counties in California, do you understand that attorneys "
-        "need to attend court on your behalf, even if you aren't there?")
-    display_label = "Consents to attorneys attending court on their behalf"
+        "In {}, do you understand that attorneys need to attend "
+        "court on your behalf, even if you aren't there?").format(
+        "most counties in California")
     agreement_text = _("Yes, I understand")
+
+    def update_counties(self, formatted_county_names):
+        self.label = _(
+            "In {}, do you understand that attorneys need to attend "
+            "court on your behalf, even if you aren't there?").format(
+            formatted_county_names)
 
 
 class SantaBarbaraCourtAppearanceChoice(ChoiceField):
-    context_key = "santa_barbara_court_appearance"
+    context_key = "is_okay_with_not_attending_court"
     choices = SANTA_BARBARA_COURT_CHOICES
     label = _(
         "In Santa Barbara county, you have a choice - would you "
         "like attorneys to attend court on your behalf, even if you "
         "are not there?")
-    # needs help on this display label
-    display_label = "Santa Barbara court appearance consent"
 
 
 class UnderstandsLimits(ConsentCheckbox):
@@ -350,9 +351,9 @@ class Zip(CharField):
 
 
 class NoMailingAddress(ConsentCheckbox):
-    context_key = "no_mailing_address"
+    context_key = "has_no_mailing_address"
     # I am not sure if this is the best way to do an empty label, but it works
-    label = _("")
+    label = ""
     agreement_text = _("I do not have a safe place where I can receive mail")
     display_label = str(
         "Does not have a mailing address")
@@ -373,12 +374,18 @@ class AddressField(MultiValueField):
     display_template_name = "formation/address_display.jinja"
 
     def get_display_value(self):
-        return "{street}\n{city}, {state}\n{zip}".format(
-            **self.get_current_value())
+        current = self.get_current_value()
+        if current.get('has_no_mailing_address', '') == YES:
+            return'Does not have a safe mailing address'
+        else:
+            return "{street}\n{city}, {state}\n{zip}".format(**current)
 
     def get_inline_display_value(self):
-        return "{street}, {city}, {state} {zip}".format(
-            **self.get_current_value())
+        current = self.get_current_value()
+        if current.get('has_no_mailing_address', '') == YES:
+            return'Does not have a safe mailing address'
+        else:
+            return "{street}, {city}, {state} {zip}".format(**current)
 
     def include_no_address_checkbox(self):
         self.subfields.append(NoMailingAddress)

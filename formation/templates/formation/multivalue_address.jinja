@@ -19,7 +19,7 @@
       {{ field.state.render()|indent(6)|safe }}
       {{ field.zip.render()|indent(6)|safe }}
     </div>
-    {%- if field.has_subfield('no_mailing_address') %}
+    {%- if field.has_subfield('has_no_mailing_address') %}
       <div class="subfield-row">
         {{ field.no_mailing_address.render()}}
       </div>
