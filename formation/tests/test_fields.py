@@ -5,6 +5,10 @@ from formation import fields
 
 class TestAddressField(PatchTranslationTestCase):
 
+    def setUp(self):
+        super().setUp()
+        fields.AddressField.reset_to_default_subfields()
+
     def test_address_get_display_value(self):
         input_data = {
             'address_street': '1 Main St.',

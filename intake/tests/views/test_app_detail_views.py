@@ -191,7 +191,7 @@ class TestApplicationDetail(AppDetailFixturesBaseTestCase):
                 user.profile.organization,
                 Organization.objects.filter(slug__contains='ventura').first()])
         response = self.get_page(submission)
-        display_form = response.context_data['display_form']
+        display_form = response.context_data['form']
         self.assertNotIn(
             'consent_to_court_appearance',
             list(display_form.get_field_keys()))

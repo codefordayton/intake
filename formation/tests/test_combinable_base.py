@@ -32,19 +32,41 @@ class TestCombinableFormSpec(PatchTranslationTestCase):
             expected_optional_fields == set(CombinedForm.optional_fields)
         )
 
-    def test_includes_list_of_counties_in_appearance_consent_label(self):
+    def test_includes_list_of_counties_in_appearance_consent_label_if_sb(self):
         CombinedForm = county_form_selector.get_combined_form_class(
             counties=[
                 Counties.CONTRA_COSTA,
                 Counties.FRESNO,
                 Counties.SAN_DIEGO,
                 Counties.SAN_FRANCISCO,
+                Counties.SANTA_BARBARA
             ])
         expected_consent_county_label = (
             "In Contra Costa County, Fresno County, San Diego County, "
             "and San Francisco County, do you understand that attorneys "
             "need to attend court on your behalf, even if you aren't there?")
         consent_label = F.ConsentToCourtAppearance.label
+        self.assertEqual(
+            expected_consent_county_label,
+            consent_label)
+
+    def test_no_county_names_in_consent_label_if_not_sb(self):
+        CombinedForm = county_form_selector.get_combined_form_class(
+            counties=[
+                Counties.CONTRA_COSTA,
+                Counties.FRESNO,
+                Counties.SAN_DIEGO,
+                Counties.SAN_FRANCISCO
+            ])
+        expected_consent_county_label = (
+            "Do you understand that attorneys "
+            "need to attend court on your behalf, even if you aren't there?")
+        consent_label = F.ConsentToCourtAppearance.label
+        self.assertEqual(CombinedForm.counties, [
+            Counties.CONTRA_COSTA,
+            Counties.FRESNO,
+            Counties.SAN_DIEGO,
+            Counties.SAN_FRANCISCO])
         self.assertEqual(
             expected_consent_county_label,
             consent_label)
@@ -64,6 +86,14 @@ class TestCombinableFormSpec(PatchTranslationTestCase):
         self.assertEqual(
             expected_consent_county_label,
             consent_label)
+
+    def test_only_santa_barbara_does_not_show_consent_to_appearance(self):
+        CombinedForm = county_form_selector.get_combined_form_class(
+            counties=[
+                Counties.SANTA_BARBARA
+            ])
+        consent_field = F.ConsentToCourtAppearance
+        self.assertNotIn(consent_field, CombinedForm.fields)
 
     def test_mailing_address_checkbox_absent_if_address_required(self):
         CombinedForm = county_form_selector.get_combined_form_class(

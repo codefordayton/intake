@@ -20,6 +20,7 @@ class CombinableFormSpec:
     combinable_attributes = union_attributes + difference_attributes
 
     def __init__(self, **kwargs):
+        self.criteria = {}
         for attribute_key in self.combinable_attributes:
             init_value = kwargs.get(attribute_key, None)
             if init_value is not None:
@@ -44,7 +45,12 @@ class CombinableFormSpec:
             safe_set = self_safe_set | other_safe_set
             in_both = self_set & other_set
             init_kwargs[attribute] = in_both | safe_set
-        return self.__class__(**init_kwargs)
+        instance = self.__class__(**init_kwargs)
+        self_criteria = getattr(self, 'criteria', {})
+        other_criteria = getattr(other, 'criteria', {})
+        # this is bad code; we may risk overwriting the criteria dict
+        instance.criteria = {**self_criteria, **other_criteria}
+        return instance
 
     def build_form_class_attributes(self):
         """Returns a dictionary of class attributes

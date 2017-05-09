@@ -56,7 +56,7 @@ class TestFullCountyApplicationSequence(IntakeDataTestCase):
     @patch('intake.models.pdfs.get_parser')
     @patch('intake.services.submissions.send_confirmation_notifications')
     @patch('intake.notifications.slack_new_submission.send')
-    def test_apply_to_sf_with_name_only(
+    def test_apply_to_sf_with_name_and_address_and_consent_only(
             self, slack, send_confirmation, get_parser):
         get_parser.return_value.fill_pdf.return_value = b'a pdf'
         self.be_anonymous()
@@ -66,6 +66,12 @@ class TestFullCountyApplicationSequence(IntakeDataTestCase):
             confirm_county_selection=YES,
             follow=True
         )
+        address_dict = {
+            'address_street': '1 Main St.',
+            'address_city': 'Oakland',
+            'address_state': 'CA',
+            'address_zip': '94609',
+        }
         # this should raise warnings
         response = self.client.fill_form(
             reverse('intake-county_application'),
@@ -74,15 +80,13 @@ class TestFullCountyApplicationSequence(IntakeDataTestCase):
             consent_to_represent='yes',
             consent_to_court_appearance='yes',
             understands_limits='yes',
+            **address_dict
         )
         self.assertRedirects(
             response, reverse('intake-confirm'), fetch_redirect_response=False)
         response = self.client.get(response.url)
         self.assertContains(response, "Foo")
         self.assertContains(response, "Bar")
-        self.assertContains(
-            response,
-            "Leaving this field blank might cause problems.")
         self.assertContains(
             response,
             fields.SocialSecurityNumberField.is_recommended_error_message)

@@ -32,6 +32,7 @@ class CombinableCountyFormSpec(CombinableFormSpec):
         is being excluded
         """
         self.counties = self.criteria['counties']
+        form_class.counties = self.counties
         is_for_display = issubclass(form_class, DisplayForm)
         is_multi_sub_with_sb = (
             'santa_barbara' in self.counties and len(self.counties) > 1)
@@ -48,6 +49,8 @@ class CombinableCountyFormSpec(CombinableFormSpec):
             appearance_consent.update_counties(
                 appearance_consent, formatted_county_names)
             form_class.fields.insert(index, appearance_consent)
+        else:
+            ConsentToCourtAppearance.reset_default_label()
 
     def modify_address_field_based_on_counties(self, form_class):
         """
@@ -59,11 +62,10 @@ class CombinableCountyFormSpec(CombinableFormSpec):
         a mailing address // same technique worked for county names
         in the label update on the appearance consent checkbox
         """
-        import ipdb; ipdb.set_trace()
         if AddressField not in form_class.required_fields:
             AddressField.include_no_address_checkbox()
         else:
-            AddressField.exclude_no_address_checkbox()
+            AddressField.reset_to_default_subfields()
 
 
 class CombinableOrganizationFormSpec(CombinableFormSpec):
