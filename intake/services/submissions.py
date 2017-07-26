@@ -2,9 +2,9 @@ import itertools
 from django.utils.translation import ugettext_lazy as _
 import Levenshtein
 import intake.services.events_service as EventsService
-from intake import models, serializers, notifications
+from intake import models, serializers, notifications, tasks
 from intake.constants import SMS, EMAIL
-from .pagination import get_page
+from . import pagination
 from intake.service_objects import ConfirmationNotification
 from intake.models.form_submission import (
     FORMSUBMISSION_TEXT_SEARCH_FIELDS, QUERYABLE_ANSWER_FIELDS, DOLLAR_FIELDS)
@@ -41,6 +41,13 @@ def create_submission(form, organizations, applicant_id):
     return submission
 
 
+def send_to_newapps_bundle_if_needed(submission, organizations):
+    sf_ids = [org.id for org in organizations if org.slug == 'sf_pubdef']
+    if sf_ids:
+        app = submission.applications.filter(organization_id=sf_ids[0]).first()
+        tasks.add_application_pdfs.delay(app.id)
+
+
 def fill_pdfs_for_submission(submission, organizations=None):
     """Checks for and creates any needed `FilledPDF` objects
     """
@@ -60,7 +67,7 @@ def get_latest_submission_from_applicant(applicant_id):
 
 
 def get_paginated_submissions_for_org_user(user, page_index):
-    return get_page(get_submissions_for_org_user(user), page_index)
+    return pagination.get_page(get_submissions_for_org_user(user), page_index)
 
 
 def get_permitted_submissions(user, ids=None):
@@ -95,21 +102,10 @@ def get_submissions_for_staff_user():
     )
 
 
-def get_submissions_for_followups():
-    subs = get_submissions_for_staff_user()
-    return serializers.FormSubmissionFollowupListSerializer(
-        subs, many=True).data
-
-
-def mark_opened(submission, user, send_slack_notification=True):
-    submission.applications.filter(
-        organization__profiles__user=user
-    ).distinct().update(has_been_opened=True)
-    EventsService.apps_opened(submission.applications.all(), user)
-    if send_slack_notification:
-        notifications.slack_submissions_viewed.send(
-            submissions=[submission], user=user,
-            bundle_url=submission.get_external_url())
+def get_submissions_for_followups(page_index):
+    query = get_submissions_for_staff_user()
+    serializer = serializers.FormSubmissionFollowupListSerializer
+    return pagination.get_serialized_page(query, serializer, page_index)
 
 
 def check_for_existing_duplicates(submission, applicant_id):

@@ -8,7 +8,7 @@ serve:
 
 
 
-SCOPE=user_accounts intake formation health_check phone
+SCOPE=user_accounts intake formation health_check phone partnerships
 
 test:
 	./manage.py test $(SCOPE) \
@@ -54,10 +54,15 @@ test.deluxe:
 	./manage.py test $(SCOPE) \
 		--verbosity 2
 
+test.everything:
+	pep8
+	make test.coverage.keepdb
+	make test.behave
+
+
 
 db.seed:
-	python ./manage.py load_essential_data
-	python ./manage.py load_mock_data
+	python ./manage.py new_fixtures
 
 
 db.setup:
@@ -105,6 +110,11 @@ db.pull.demo:
 	heroku pg:pull --app cmr-demo DATABASE_URL intake
 
 
-static:
-	rm -rf staticfiles
-	./manage.py collectstatic --noinput
+# static.dev runs sass to convert .scss stylesheets to css
+# it will watch the scss directory and automatically regenerate css
+static.dev:
+	sass \
+        --require bourbon \
+        --require normalize-scss \
+        --require neat \
+        --watch intake/static/intake/scss:intake/static/intake/css

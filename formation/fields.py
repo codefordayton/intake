@@ -109,6 +109,33 @@ class UnderstandsLimits(ConsentCheckbox):
         "Understands might not qualify and could take a few months")
 
 
+class IdentityConfirmation(ConsentCheckbox):
+    context_key = "identity_confirmation"
+    is_required_error_message = (
+        "We need your understanding before we can help you")
+    label = _(
+        "Do you understand that this application should only be submitted for "
+        "yourself or someone who has given you permission to apply on their "
+        "behalf, and that it is illegal to use this application to gain "
+        "access to someone's private information?")
+    agreement_text = _("Yes, I understand")
+    display_label = str(
+        "Confirms application is for self or with permission")
+
+
+class UnderstandsMaybeFee(ConsentCheckbox):
+    context_key = "understands_maybe_fee"
+    is_required_error_message = (
+        "We need your understanding before we can help you")
+    label = _(
+        "Do you understand that if you are eligible, you might have to pay a "
+        "fee in Yolo County? If you are low income, you may be eligible for "
+        "a fee waiver.")
+    agreement_text = _("Yes, I understand")
+    display_label = str(
+        "Understands that there may be a fee in Yolo County")
+
+
 class ReasonsForApplying(MultipleChoiceField):
     context_key = "reasons_for_applying"
     label = _("Why are you applying to clear your record?")
@@ -352,6 +379,21 @@ class AddressField(MultiValueField):
     def get_inline_display_value(self):
         return "{street}, {city}, {state} {zip}".format(
             **self.get_current_value())
+
+
+class IsCaliforniaResident(YesNoField):
+    context_key = "is_california_resident"
+    label = _("Are you a current resident of California?")
+    display_label = "California resident?"
+
+
+class HowLongCaliforniaResident(CharField):
+    context_key = "how_long_california_resident"
+    label = _(
+        "If you live in California, how long have you continuously lived "
+        "here?")
+    help_text = _("For example: 5 years")
+    display_label = "How long?"
 
 
 ###
@@ -630,6 +672,8 @@ INTAKE_FIELDS = [
     AlternatePhoneNumberField,
     EmailField,
     AddressField,
+    IsCaliforniaResident,
+    HowLongCaliforniaResident,
     DateOfBirthField,
     DriverLicenseOrIDNumber,
     LastFourOfSocial,
@@ -669,6 +713,8 @@ INTAKE_FIELDS = [
     HowDidYouHear,
     AdditionalInformation,
     UnderstandsLimits,
+    IdentityConfirmation,
+    UnderstandsMaybeFee,
     ConsentToRepresent,
     ConsentNote,
 

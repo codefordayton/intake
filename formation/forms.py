@@ -369,8 +369,12 @@ class SanDiegoCountyFormSpec(SolanoCountyFormSpec):
     county = Counties.SAN_DIEGO
     fields = (SolanoCountyFormSpec.fields | {
         F.CaseNumber,
+        F.IdentityConfirmation
     }) - {
         F.USCitizen,
+    }
+    required_fields = SolanoCountyFormSpec.required_fields | {
+        F.IdentityConfirmation
     }
     optional_fields = SolanoCountyFormSpec.optional_fields | {
         F.CaseNumber
@@ -489,6 +493,8 @@ class VenturaCountyFormSpec(CombinableCountyFormSpec):
         F.AlternatePhoneNumberField,
         F.EmailField,
         F.AddressField,
+        F.IsCaliforniaResident,
+        F.HowLongCaliforniaResident,
         F.OwnsHome,
         F.FinancialScreeningNote,
         F.CurrentlyEmployed,
@@ -500,8 +506,6 @@ class VenturaCountyFormSpec(CombinableCountyFormSpec):
         F.HowManyDependents,
         F.IsVeteran,
         F.DateOfBirthField,
-        F.LastFourOfSocial,
-        F.DriverLicenseOrIDNumber,
         F.OnProbationParole,
         F.WhereProbationParole,
         F.OwesCourtFees,
@@ -545,12 +549,67 @@ class SantaBarbaraCountyFormSpec(VenturaCountyFormSpec):
         F.ReasonsForApplying,
         F.IsMarried,
         F.HowMuchSavings,
+        F.DriverLicenseOrIDNumber,
         F.WhenProbationParole}) - {
-        F.LastFourOfSocial,
+        F.IsCaliforniaResident,
+        F.HowLongCaliforniaResident,
         F.IsVeteran,
     }
     required_fields = (
         VenturaCountyFormSpec.required_fields | {F.HowMuchSavings})
+
+
+class YoloCountyFormSpec(SonomaCountyFormSpec):
+    county = Counties.YOLO
+    fields = (SonomaCountyFormSpec.fields | {
+        F.Aliases,
+        F.CaseNumber,
+        F.CurrentlyEmployed,
+        F.MonthlyIncome,
+        F.IncomeSource,
+        F.HowMuchSavings,
+        F.OnPublicBenefits,
+        F.MonthlyExpenses,
+        F.OwnsHome,
+        F.HasChildren,
+        F.HowManyDependents,
+        F.IsMarried,
+        F.UnderstandsMaybeFee
+    }) - {
+        F.AlternatePhoneNumberField,
+        F.OwesCourtFees,
+        F.ServingSentence,
+        F.USCitizen
+    }
+    required_fields = (SonomaCountyFormSpec.required_fields | {
+        F.CurrentlyEmployed,
+        F.MonthlyIncome,
+        F.IncomeSource,
+        F.HowMuchSavings,
+        F.MonthlyExpenses,
+        F.OwnsHome,
+        F.HowManyDependents,
+        F.IsMarried,
+        F.ReasonsForApplying,
+        F.UnderstandsMaybeFee
+        }) - {
+        F.OwesCourtFees,
+    }
+
+
+class StanislausCountyFormSpec(FresnoCountyFormSpec):
+    county = Counties.STANISLAUS
+    fields = FresnoCountyFormSpec.fields - {
+        F.DriverLicenseOrIDNumber,
+        F.LastFourOfSocial,
+        F.CaseNumber,
+        F.USCitizen,
+        F.MonthlyIncome,
+        F.IncomeSource,
+        F.HowMuchSavings,
+        F.HowManyDependents
+    }
+    required_fields = (FresnoCountyFormSpec.required_fields)
 
 
 class EBCLCIntakeFormSpec(CombinableOrganizationFormSpec):
@@ -671,6 +730,8 @@ INPUT_FORM_SPECS = [
     TulareCountyFormSpec(),
     VenturaCountyFormSpec(),
     SantaBarbaraCountyFormSpec(),
+    YoloCountyFormSpec(),
+    StanislausCountyFormSpec()
 ]
 
 DISPLAY_FORM_SPECS = INPUT_FORM_SPECS + [

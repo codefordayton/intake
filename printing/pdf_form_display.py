@@ -66,13 +66,20 @@ class PDFFormDisplay:
         ['phone_number', 'alternate_phone_number'],
         ['email'],
         ['address'],
+        ['is_california_resident', 'how_long_california_resident'],
         ['currently_employed', 'income_source'],
         ['monthly_income', 'monthly_expenses'],
         ['household_size', 'dependents', 'has_children', 'is_married'],
         ['owns_home', 'on_public_benefits'],
         ['how_did_you_hear'],
-        ['understands_limits'],
-        ['consent_to_represent'],
+        [
+            'understands_limits',
+            'consent_to_represent'
+        ],
+        [
+            'identity_confirmation',
+            'understands_maybe_fee'
+        ],
         ['additional_information'],
     ]
 

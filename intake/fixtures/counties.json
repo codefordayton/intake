@@ -113,7 +113,7 @@
   "fields": {
     "slug": "ventura",
     "name": "Ventura",
-    "description": "Ventura County (near Oxnard, Thousand Oaks, Simi Valley, Camarillo, Ojai, Moorpark, Fillmore, Ojai, Santa Paula and Ventura)"
+    "description": "Ventura County (near Oxnard, Thousand Oaks, Simi Valley, Camarillo, Ojai, Moorpark, Fillmore, Santa Paula and Ventura)"
   }
 },
 {
@@ -123,6 +123,24 @@
     "slug": "santa_barbara",
     "name": "Santa Barbara",
     "description": "Santa Barbara County (near Santa Maria, Santa Barbara, Goleta, Carpinteria, Solvang, and Lompoc)"
+  }
+},
+{
+  "model": "intake.county",
+  "pk": 15,
+  "fields": {
+    "slug": "yolo",
+    "name": "Yolo",
+    "description": "Yolo County (near Davis, West Sacramento, Winters, and Woodland)"
+  }
+},
+{
+  "model": "intake.county",
+  "pk": 16,
+  "fields": {
+    "slug": "stanislaus",
+    "name": "Stanislaus",
+    "description": "Stanislaus County (near Modesto, Turlock, and Ceres)"
   }
 }
 ]

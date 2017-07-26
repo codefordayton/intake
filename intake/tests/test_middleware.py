@@ -4,6 +4,35 @@ from django.core.urlresolvers import reverse
 
 from intake.middleware import GetCleanIpAddressMiddleware
 from intake import models
+from django.http import HttpResponseServerError
+from tests.base import respond_with
+
+
+class TestUserAgentMiddleware(TestCase):
+
+    def test_empty_user_agent_header(self):
+        # Make sure that UserAgentMiddleware can still handle an empty
+        # http header
+        request = self.client.get(reverse('intake-home')).wsgi_request
+        self.assertEqual('Other', request.user_agent.os.family)
+        self.assertEqual('Other', request.user_agent.browser.family)
+        self.assertEqual('Other', request.user_agent.device.family)
+        self.assertEqual(False, request.user_agent.is_bot)
+
+    def test_expected_success(self):
+        user_agent_string = str(
+            'Mozilla/5.0 (Linux; Android 6.0.1; Z831 Build/MMB29M) '
+            'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.83 '
+            'Mobile Safari/537.36')
+        request = self.client.get(
+            reverse('intake-home'), HTTP_USER_AGENT=user_agent_string
+        ).wsgi_request
+        self.assertEqual('Android', request.user_agent.os.family)
+        self.assertEqual('Chrome Mobile', request.user_agent.browser.family)
+        self.assertEqual('Z831', request.user_agent.device.family)
+        self.assertEqual(False, request.user_agent.is_bot)
+        self.assertEqual(True, request.user_agent.is_mobile)
+        self.assertEqual(False, request.user_agent.is_tablet)
 
 
 class TestPersistReferrerMiddleware(TestCase):
@@ -112,7 +141,8 @@ class TestCountUniqueVisitorsMiddleware(TestCase):
         visitor_id_2 = response_2.wsgi_request.session.get('visitor_id')
         self.assertEqual(visitor_id, visitor_id_2)
         Visitor.assert_called_once_with(
-            ip_address='127.0.0.1', referrer='', source='')
+            ip_address='127.0.0.1', referrer='', source='', user_agent='',
+            locale='en')
 
     @patch('intake.middleware.Visitor')
     def test_ignores_health_checks(self, Visitor):
@@ -120,3 +150,26 @@ class TestCountUniqueVisitorsMiddleware(TestCase):
         response = self.client.get(reverse('health_check-ok'))
         self.assertIsNone(response.wsgi_request.session.get('visitor_id'))
         Visitor.assert_not_called()
+
+    def test_response_view_identified(self):
+        response = self.client.get(reverse('intake-apply'))
+        self.assertEqual(response.view.__class__.__name__, 'SelectCountyView')
+
+    @patch('intake.middleware.EventsService.page_viewed')
+    def test_404_does_not_fire_page_viewed(self, page_viewed):
+        self.client.get('/doesnotexist')
+        page_viewed.assert_not_called()
+
+    @patch('intake.middleware.EventsService.page_viewed')
+    def test_redirecting_response_does_not_fire_page_viewed(self, page_viewed):
+        response = self.client.get(reverse('intake-app_index'))
+        page_viewed.assert_not_called()
+        self.client.get(response.url)
+        self.assertEqual(1, page_viewed.call_count)
+
+    @patch('intake.middleware.EventsService.page_viewed')
+    @patch('intake.views.public_views.Home.get', respond_with(
+        HttpResponseServerError))
+    def test_500_does_not_fire_page_viewed(self, page_viewed):
+        self.client.get(reverse('intake-home'))
+        page_viewed.assert_not_called()

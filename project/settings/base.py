@@ -17,8 +17,6 @@ DEBUG_TOOLBAR_PATCH_SETTINGS = False
 INSTALLED_APPS = [
     'heroku_hijack_collectstatic',
     'django.contrib.sites',
-    'dal',
-    'dal_select2',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -31,6 +29,7 @@ INSTALLED_APPS = [
     'url_robots',
     'user_accounts',
     'phone',
+    'partnerships',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -46,15 +45,17 @@ INSTALLED_APPS = [
     'favicons',
 ]
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'intake.middleware.UserAgentMiddleware',
     'intake.middleware.PersistReferrerMiddleware',
     'intake.middleware.PersistSourceMiddleware',
     'intake.middleware.GetCleanIpAddressMiddleware',
@@ -99,6 +100,7 @@ TEMPLATES = [
                 "format_phone_number": "project.jinja2.format_phone_number",
                 "settings": "django.conf.settings",
                 "local_time": "intake.utils.local_time",
+                "static": "project.jinja2.loudfail_static",
             }
         },
     },
@@ -195,13 +197,13 @@ STATICFILES_FINDERS = [
 ]
 
 
-def build_precompilers(path):
-    less_command = os.path.join(path, '.bin/lessc')
+def build_precompilers(node_path):
+    less_command = os.path.join(node_path, '.bin/lessc')
     exec_less = '%s --include-path=%s {infile} {outfile}' % (
         less_command,
-        path,
+        node_path,
     )
-    browserify_command = os.path.join(path, '.bin/browserify')
+    browserify_command = os.path.join(node_path, '.bin/browserify')
     exec_browserify = '%s {infile} -d --outfile {outfile}' % browserify_command
     return (
         ('text/less', exec_less),

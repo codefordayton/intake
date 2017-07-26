@@ -1,7 +1,6 @@
 # Core dependencies
 behave-django~=0.5.0
 django>=1.10,<1.11
-django-autocomplete-light~=3.2
 psycopg2~=2.6
 Jinja2~=2.8
 pytz~=2016.6
@@ -15,7 +14,7 @@ django-jinja~=2.2
 django-debug-toolbar==1.4
 djangorestframework~=3.5
 reportlab~=3.3
-Pillow~=3.4
+Pillow~=4.1
 python-Levenshtein~=0.12
 django-taggit~=0.21
 mixpanel~=4.3.1
@@ -23,6 +22,12 @@ django-extensions~=1.7
 celery~=4.0
 twilio==6.1.0
 django-compressor==2.1.1
+amqp==2.1.4
+# user agent parsing & middleware
+PyYAML==3.12
+user-agents==1.1.0
+ua-parser==0.7.3
+
 # factory-boy breaks on later version fo fake-factory
 # we need to pin fake-factory
 fake-factory==0.7.2

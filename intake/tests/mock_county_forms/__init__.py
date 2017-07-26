@@ -250,6 +250,7 @@ class Provider(BaseProvider):
         data.update(
             case_number=self.generator.numerify("C####-###"),
             reasons_for_applying=['background_check', 'lost_job', 'housing'],
+            identity_confirmation='yes'
         )
         data.update(overrides)
         return data
@@ -314,6 +315,8 @@ class Provider(BaseProvider):
             is_veteran=self.maybe(0.4),
             dependents=random.randint(0, 5),
             reduced_probation=self.maybe(0.1),
+            is_california_resident=self.maybe(0.8),
+            how_long_california_resident='6 months',
         )
         data.update(overrides)
         return data
@@ -331,6 +334,24 @@ class Provider(BaseProvider):
             )
         return data
 
+    def yolo_pubdef_answers(self, **overrides):
+        data = self.monterey_pubdef_answers(**overrides)
+        data.update(
+            reasons_for_applying=['background_check', 'lost_job', 'housing'],
+            is_married=self.maybe(0.4),
+            how_much_savings=2000,
+            household_size=random.randint(0, 5),
+            has_children=self.maybe(0.4),
+            dependents=random.randint(0, 4),
+            currently_employed=self.maybe(0.4),
+            understands_maybe_fee='yes'
+            )
+        return data
+
+    def stanislaus_pubdef_answers(self, **overrides):
+        data = self.fresno_pubdef_answers(**overrides)
+        return data
+
     def all_county_answers(self, **overrides):
         data = {
             **self.sf_county_form_answers(),
@@ -343,6 +364,8 @@ class Provider(BaseProvider):
             **self.fresno_pubdef_answers(),
             **self.sonoma_pubdef_answers(),
             **self.tulare_pubdef_answers(),
+            **self.yolo_pubdef_answers(),
+            **self.stanislaus_pubdef_answers(),
         }
         data.update(overrides)
         return data

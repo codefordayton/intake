@@ -1,8 +1,7 @@
 from browserstack.local import Local
 from django.conf import settings
-from urllib.parse import urljoin
+from django.core.management import call_command
 from selenium import webdriver
-from project.fixtures_index import ESSENTIAL_DATA_FIXTURES
 
 
 USERNAME = settings.BROWSER_STACK_ID
@@ -63,4 +62,10 @@ def after_all(context):
 
 
 def before_scenario(context, scenario):
-    context.fixtures = ['counties', 'organizations']
+    call_command('load_essential_data')
+    context.test.patches = {}
+
+
+def after_scenario(context, scenario):
+    for patch_name, patch in context.test.patches.items():
+        patch.stop()
