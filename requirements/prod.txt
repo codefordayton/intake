@@ -1,5 +1,4 @@
 # Dependencies for production
--r app.txt
 dj-database-url~=0.4
 gunicorn~=19.6
 whitenoise~=3.2

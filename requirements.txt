@@ -1,3 +1,4 @@
 # Included because many Paas's require a requirements.txt file
 # in the project root
+-r requirements/app.txt
 -r requirements/prod.txt
