@@ -1,0 +1,44 @@
+version: '3.2'
+services:
+  postgres:
+    restart: always
+    image: postgres:latest
+    volumes:
+      - ./postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ./backups/postgresql:/backup
+      - data-postgres:/var/lib/postgresql
+    env_file:
+      - env
+    expose:
+      - "5432"
+
+  web:
+    restart: always
+    build: ..
+    command: 'python3 manage.py runserver 0.0.0.0:8000'
+    expose:
+      - "8000"
+    links:
+      - postgres:postgres
+    env_file: env
+    volumes:
+      - ./web:/data/web
+      - data-volume:/data/web
+    depends_on:
+      - postgres
+
+  nginx:
+    restart: always
+    build: ./nginx/
+    ports:
+      - "8080:80"
+    volumes:
+      - data-volume:/data/web
+    depends_on:
+      - web
+    links:
+      - web:web
+
+volumes:
+  data-volume:
+  data-postgres:
