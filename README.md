@@ -31,6 +31,31 @@ make db.setup  # migrate the database and add seed data
 make serve   # run the server
 ```
 
+### Docker
+
+Overview of docker setup
+```sh
+git clone https://github.com/codefordayton/intake.git
+cd intake
+cp docker/local_settings.py.dockersample local_settings.py
+cp docker/env.sample docker/env
+
+# Update local_settings.py
+#   SECRET_KEY
+#   ...
+#   Set TEST_USER_PASSWORD to use new_fixtures
+
+# Update docker/env
+#   DB_PASS
+
+cd docker
+docker-compose build
+docker-compose up -d
+docker-compose exec web python manage.py migrate
+docker-compose exec web python manage.py new_fixtures
+
+```
+
 ### Installation
 
 Be sure to install all the dependencies in a python virtual environment. `make install` will install both npm packages as well as python packages.
